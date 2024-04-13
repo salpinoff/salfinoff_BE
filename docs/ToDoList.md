@@ -1,4 +1,4 @@
-# TODO List 관리
+# TODO List
 
 4월 20일
 - [ ] 카카오 OAuth 구현
