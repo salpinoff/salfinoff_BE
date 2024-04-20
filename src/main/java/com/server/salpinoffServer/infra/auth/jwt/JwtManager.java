@@ -1,5 +1,6 @@
 package com.server.salpinoffServer.infra.auth.jwt;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,5 +39,13 @@ public class JwtManager {
                 .setExpiration(new Date(now + tokenExpirationPeriod))
                 .signWith(Keys.hmacShaKeyFor(jwtSecretKey.getBytes(StandardCharsets.UTF_8)))
                 .compact();
+    }
+
+    public Long getUserId(String accessToken) {
+        Claims claim = Jwts.parserBuilder()
+                .setSigningKey(jwtSecretKey.getBytes(StandardCharsets.UTF_8))
+                .build().parseClaimsJws(accessToken).getBody();
+
+        return Long.parseLong(claim.getSubject());
     }
 }
