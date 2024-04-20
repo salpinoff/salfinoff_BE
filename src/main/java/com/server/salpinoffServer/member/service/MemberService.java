@@ -21,7 +21,7 @@ public class MemberService {
         Member member = memberRepository.findMemberBySocialId(socialKey)
                 .orElseGet(() -> memberRepository.saveMember(new Member(socialKey)));
 
-        String refreshToken = jwtManager.createRefreshToken();
+        String refreshToken = jwtManager.createRefreshToken(member.getId());
         memberRepository.findTokenByMemberId(member.getId()).ifPresentOrElse(
                 token -> token.changeRefreshToken(refreshToken),
                 () -> memberRepository.saveToken(new Token(refreshToken, member.getId()))
