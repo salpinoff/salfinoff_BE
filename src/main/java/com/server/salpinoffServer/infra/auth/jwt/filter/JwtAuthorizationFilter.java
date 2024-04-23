@@ -36,7 +36,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                 final String accessToken = authorizationHeader.substring(7);
                 UserInfo userInfo = new UserInfo(jwtManager.getUserId(accessToken));
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken
-                        = new UsernamePasswordAuthenticationToken(userInfo, null);
+                        = new UsernamePasswordAuthenticationToken(userInfo, null, userInfo.getAuthorities());
                 usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             } catch (ExpiredJwtException e) {

@@ -40,11 +40,11 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
+                .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtExceptionFilter, JwtAuthorizationFilter.class)
                 .authorizeHttpRequests(registry -> registry
                         .requestMatchers("/api/v1/member/login/*", "/health", "/redirect").permitAll()
-                        .anyRequest().hasRole("USER"))
-                .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(jwtExceptionFilter, JwtAuthorizationFilter.class);
+                        .anyRequest().hasAuthority("USER"));
 
         return http.build();
     }
