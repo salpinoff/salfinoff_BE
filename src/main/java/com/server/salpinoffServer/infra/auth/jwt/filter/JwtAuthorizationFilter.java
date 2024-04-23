@@ -34,7 +34,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         if (StringUtils.hasText(authorizationHeader) && authorizationHeader.startsWith(TOKEN_PREFIX)) {
             try {
                 final String accessToken = authorizationHeader.substring(7);
-                UserInfo userInfo = new UserInfo(jwtManager.getUserId(accessToken));
+                UserInfo userInfo = new UserInfo(jwtManager.getUserId(accessToken), jwtManager.getAuthority(accessToken));
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken
                         = new UsernamePasswordAuthenticationToken(userInfo, null, userInfo.getAuthorities());
                 usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

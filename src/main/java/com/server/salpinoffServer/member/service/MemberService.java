@@ -19,15 +19,15 @@ public class MemberService {
     public LoginResponse login(String socialKey) {
 
         Member member = memberRepository.findMemberBySocialId(socialKey)
-                .orElseGet(() -> memberRepository.saveMember(new Member(socialKey)));
+                .orElseGet(() -> memberRepository.saveMember(Member.toUser(socialKey)));
 
-        String refreshToken = jwtManager.createRefreshToken(member.getId());
+        String refreshToken = jwtManager.createRefreshToken(member);
         memberRepository.findTokenByMemberId(member.getId()).ifPresentOrElse(
                 token -> token.changeRefreshToken(refreshToken),
                 () -> memberRepository.saveToken(new Token(refreshToken, member.getId()))
         );
 
-        String accessToken = jwtManager.createAccessToken(member.getId());
+        String accessToken = jwtManager.createAccessToken(member);
 
         return new LoginResponse(member.getId(), accessToken, refreshToken);
     }

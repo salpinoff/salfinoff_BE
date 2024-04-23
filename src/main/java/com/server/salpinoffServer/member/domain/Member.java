@@ -17,7 +17,20 @@ public class Member {
     @Column(unique = true)
     private String socialKey;
 
-    public Member(String socialKey) {
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Authority authority;
+
+    private Member(String socialKey, Authority authority) {
         this.socialKey = socialKey;
+        this.authority = authority;
+    }
+
+    public static Member toUser(String socialKey) {
+        return new Member(socialKey, Authority.USER);
+    }
+
+    public enum Authority {
+        USER
     }
 }

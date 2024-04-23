@@ -10,14 +10,16 @@ import java.util.Collection;
 public class UserInfo {
 
     private final Long userId;
+    private final String authority;
 
-    public UserInfo(Long userId) {
+    public UserInfo(Long userId, String authority) {
         this.userId = userId;
+        this.authority = authority;
     }
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(() -> "USER");
+        authorities.add(() -> authority);
         return authorities;
     }
 }
