@@ -1,0 +1,28 @@
+= CS-tap-in Application API Document
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+[[auth]]
+== 인증
+
+=== 카카오 로그인
+
+operation::login-kakao[snippets='http-request']
+Request body
+|===
+| key | type | description | required
+| code | String | 카카오 인증 서버에서 발급해준 코드 | O
+|===
+
+operation::login-kakao[snippets='http-response']
+Response body
+|===
+| key | type | description | required
+| memberId | Long | 회원 고유 id (pk) | O
+| accessToken | String | access token | O
+| refreshToken | String | refresh token | O
+|===
