@@ -1,5 +1,6 @@
 package com.server.salpinoffServer.member.domain;
 
+import com.server.salpinoffServer.infra.auth.jwt.JwtManager;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -14,6 +15,7 @@ public class Token {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     private String refreshToken;
 
     @Column(unique = true)
@@ -26,5 +28,9 @@ public class Token {
 
     public void changeRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
+    }
+
+    public boolean isExpired(JwtManager jwtManager) {
+        return jwtManager.isExpired(refreshToken);
     }
 }

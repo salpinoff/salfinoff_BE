@@ -2,6 +2,7 @@ package com.server.salpinoffServer.infra.auth.jwt;
 
 import com.server.salpinoffServer.member.domain.Member;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -44,18 +45,29 @@ public class JwtManager {
     }
 
     public Long getUserId(String accessToken) {
-        Claims claim = Jwts.parserBuilder()
-                .setSigningKey(jwtSecretKey.getBytes(StandardCharsets.UTF_8))
-                .build().parseClaimsJws(accessToken).getBody();
+        Claims claim = getClaims(accessToken);
 
         return Long.parseLong(claim.getSubject());
     }
 
     public String getAuthority(String accessToken) {
-        Claims claim = Jwts.parserBuilder()
-                .setSigningKey(jwtSecretKey.getBytes(StandardCharsets.UTF_8))
-                .build().parseClaimsJws(accessToken).getBody();
+        Claims claim = getClaims(accessToken);
 
         return claim.get("authority", String.class);
+    }
+
+    public boolean isExpired(String token) {
+        try {
+            getClaims(token);
+        } catch (ExpiredJwtException e) {
+            return true;
+        }
+        return false;
+    }
+
+    private Claims getClaims(String accessToken) {
+        return Jwts.parserBuilder()
+                .setSigningKey(jwtSecretKey.getBytes(StandardCharsets.UTF_8))
+                .build().parseClaimsJws(accessToken).getBody();
     }
 }

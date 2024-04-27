@@ -40,4 +40,16 @@ public class MemberRepositoryImpl implements MemberRepository {
     public Token saveToken(Token token) {
         return tokenJpaRepository.save(token);
     }
+
+    @Override
+    public Token getTokenByRefreshToken(String refreshToken) {
+        return tokenJpaRepository.findByRefreshToken(refreshToken)
+                .orElseThrow(() -> new NotFoundException("존재하지 않는 리프레시 토큰입니다."));
+    }
+
+    @Override
+    public Member getMember(Long memberId) {
+        return memberJpaRepository.findById(memberId)
+                .orElseThrow(() -> new NotFoundException("존재하지 않는 회원입니다."));
+    }
 }

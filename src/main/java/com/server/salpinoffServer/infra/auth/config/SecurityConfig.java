@@ -43,7 +43,8 @@ public class SecurityConfig {
                 .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtExceptionFilter, JwtAuthorizationFilter.class)
                 .authorizeHttpRequests(registry -> registry
-                        .requestMatchers("/api/v1/members/login/*", "/health", "/redirect").permitAll()
+                        .requestMatchers("/api/v1/members/login/*", "/health", "/redirect",
+                                "/api/v1/members/token/refresh").permitAll()
                         .anyRequest().hasAuthority("USER"));
 
         return http.build();

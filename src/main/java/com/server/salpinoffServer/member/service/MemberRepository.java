@@ -16,4 +16,8 @@ public interface MemberRepository {
     Member saveMember(Member member);
 
     Token saveToken(Token token);
+
+    Token getTokenByRefreshToken(String refreshToken);
+
+    Member getMember(Long memberId);
 }

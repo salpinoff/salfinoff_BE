@@ -5,17 +5,17 @@ import lombok.Getter;
 @Getter
 public class ExceptionResponse {
 
-    private final String code;
+    private final String name;
     private final String message;
 
-    public ExceptionResponse(String code, String message) {
-        this.code = code;
+    public ExceptionResponse(String name, String message) {
+        this.name = name;
         this.message = message;
     }
 
     public String convertToJson() {
         return "{" +
-                "\"code\": " + "\"" + code + "\",\n" +
+                "\"code\": " + "\"" + name + "\",\n" +
                 "\"message\": " + "\"" + message + "\"\n" +
                 "}";
     }

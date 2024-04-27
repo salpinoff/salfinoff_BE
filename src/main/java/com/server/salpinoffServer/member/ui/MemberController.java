@@ -5,6 +5,7 @@ import com.server.salpinoffServer.member.service.MemberService;
 import com.server.salpinoffServer.member.service.OAuthManager;
 import com.server.salpinoffServer.member.service.dto.LoginKakaoRequest;
 import com.server.salpinoffServer.member.service.dto.LoginResponse;
+import com.server.salpinoffServer.member.service.dto.RefreshTokenRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,13 @@ public class MemberController {
         LoginResponse loginResponse = memberService.login(socialKey);
 
         return ResponseEntity.ok(loginResponse);
+    }
+
+    @PostMapping("/token/refresh")
+    public ResponseEntity<LoginResponse> refreshToken(@Valid @RequestBody RefreshTokenRequest request) {
+        LoginResponse response = memberService.refreshToken(request);
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/my")
