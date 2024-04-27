@@ -1,4 +1,4 @@
-= CS-tap-in Application API Document
+= SalpinOff Application API Document
 :doctype: book
 :icons: font
 :source-highlighter: highlightjs
