@@ -46,4 +46,16 @@ public class MemberSteps {
                 .log().all().extract();
     }
 
+    public static ExtractableResponse<Response> 로그아웃() {
+        return 로그아웃(RestAssured.given().log().all());
+    }
+
+    public static ExtractableResponse<Response> 로그아웃(RequestSpecification requestSpecification) {
+
+        return requestSpecification
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .when().post(PATH_PREFIX + "/logout")
+                .then().statusCode(HttpStatus.OK.value())
+                .log().all().extract();
+    }
 }
