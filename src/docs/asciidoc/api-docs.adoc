@@ -26,3 +26,24 @@ Response body
 | accessToken | String | access token | O
 | refreshToken | String | refresh token | O
 |===
+
+=== 토큰 재발급
+
+NOTE: 리프레시 토큰이 만료되었을 경우 403 을 반환합니다. 로그아웃 처리 부탁드립니다. +
+토큰 재발급 시 accessToken + refreshToken 모두 재발급 합니다. (여러 브라우저에서 로그인 못하게 하기 위함)
+
+operation::token-refresh[snippets='http-request']
+Request body
+|===
+| key | type | description | required
+| refreshToken | String | 리프레시 토큰 | O
+|===
+
+operation::token-refresh[snippets='http-response']
+Response body
+|===
+| key | type | description | required
+| memberId | Long | 회원 고유 id (pk) | O
+| accessToken | String | access token | O
+| refreshToken | String | refresh token | O
+|===
