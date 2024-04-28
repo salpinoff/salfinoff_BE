@@ -1,5 +1,8 @@
 package com.server.salpinoffServer.monster.service.dto;
 
+import lombok.Getter;
+
+@Getter
 public class MonsterMessagesResponse {
     private Long messageId;
     private String sender;

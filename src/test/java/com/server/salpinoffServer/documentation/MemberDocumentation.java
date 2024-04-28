@@ -1,7 +1,5 @@
 package com.server.salpinoffServer.documentation;
 
-import com.server.salpinoffServer.infra.auth.jwt.JwtManager;
-import com.server.salpinoffServer.member.domain.Member;
 import com.server.salpinoffServer.member.service.MemberService;
 import com.server.salpinoffServer.member.service.OAuthManager;
 import com.server.salpinoffServer.member.service.dto.LoginResponse;
@@ -19,9 +17,6 @@ public class MemberDocumentation extends Documentation {
 
     @MockBean
     private MemberService memberService;
-
-    @MockBean
-    private JwtManager jwtManager;
 
     @Test
     void loginKakao() {
@@ -51,9 +46,7 @@ public class MemberDocumentation extends Documentation {
     @Test
     void logout() {
         //given
-        //security filter 에서 걸리지 않기 위함
-        when(jwtManager.getMemberId(any())).thenReturn(1L);
-        when(jwtManager.getAuthority(any())).thenReturn(Member.Authority.USER.name());
+        setAccessToken();
 
         //then
         로그아웃(getRequestSpecification("logout").auth().oauth2("accessToken"));

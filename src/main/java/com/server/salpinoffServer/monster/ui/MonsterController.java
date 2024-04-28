@@ -62,8 +62,9 @@ public class MonsterController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/encouragement")
-    public ResponseEntity<Void> encourageUser(@Valid @RequestBody EncouragementMessageRequest request) {
+    @PostMapping("/{monsterId}/encouragement")
+    public ResponseEntity<Void> encourageUser(@PathVariable(value = "monsterId") Long monsterId,
+                                              @Valid @RequestBody EncouragementMessageRequest request) {
         return ResponseEntity.ok().build();
     }
 }
