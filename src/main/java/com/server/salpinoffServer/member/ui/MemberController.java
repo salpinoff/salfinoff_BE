@@ -1,6 +1,6 @@
 package com.server.salpinoffServer.member.ui;
 
-import com.server.salpinoffServer.infra.auth.dto.UserInfo;
+import com.server.salpinoffServer.infra.auth.dto.MemberInfo;
 import com.server.salpinoffServer.member.service.MemberService;
 import com.server.salpinoffServer.member.service.OAuthManager;
 import com.server.salpinoffServer.member.service.dto.LoginKakaoRequest;
@@ -35,10 +35,17 @@ public class MemberController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/my")
-    public ResponseEntity<Void> getMyInfo(@AuthenticationPrincipal UserInfo userInfo) {
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(@AuthenticationPrincipal MemberInfo memberInfo) {
+        memberService.logout(memberInfo.memberId());
 
-        System.out.println(userInfo.getUserId());
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/my")
+    public ResponseEntity<Void> getMyInfo(@AuthenticationPrincipal MemberInfo memberInfo) {
+
+        System.out.println(memberInfo.memberId());
 
         return ResponseEntity.ok().build();
     }

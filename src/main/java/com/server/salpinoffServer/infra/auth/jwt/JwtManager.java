@@ -44,7 +44,7 @@ public class JwtManager {
                 .compact();
     }
 
-    public Long getUserId(String accessToken) {
+    public Long getMemberId(String accessToken) {
         Claims claim = getClaims(accessToken);
 
         return Long.parseLong(claim.getSubject());

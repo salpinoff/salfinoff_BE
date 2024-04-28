@@ -1,6 +1,6 @@
 package com.server.salpinoffServer.infra.auth.jwt.filter;
 
-import com.server.salpinoffServer.infra.auth.dto.UserInfo;
+import com.server.salpinoffServer.infra.auth.dto.MemberInfo;
 import com.server.salpinoffServer.infra.auth.jwt.JwtManager;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
@@ -34,9 +34,9 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         if (StringUtils.hasText(authorizationHeader) && authorizationHeader.startsWith(TOKEN_PREFIX)) {
             try {
                 final String accessToken = authorizationHeader.substring(7);
-                UserInfo userInfo = new UserInfo(jwtManager.getUserId(accessToken), jwtManager.getAuthority(accessToken));
+                MemberInfo memberInfo = new MemberInfo(jwtManager.getMemberId(accessToken), jwtManager.getAuthority(accessToken));
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken
-                        = new UsernamePasswordAuthenticationToken(userInfo, null, userInfo.getAuthorities());
+                        = new UsernamePasswordAuthenticationToken(memberInfo, null, memberInfo.getAuthorities());
                 usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             } catch (ExpiredJwtException e) {

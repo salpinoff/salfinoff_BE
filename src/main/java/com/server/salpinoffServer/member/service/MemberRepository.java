@@ -20,4 +20,6 @@ public interface MemberRepository {
     Token getTokenByRefreshToken(String refreshToken);
 
     Member getMember(Long memberId);
+
+    void deleteTokenByMemberId(Long memberId);
 }

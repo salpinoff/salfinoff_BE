@@ -50,4 +50,9 @@ public class MemberService {
 
         return new LoginResponse(member.getId(), accessToken, refreshToken);
     }
+
+    @Transactional
+    public void logout(Long memberId) {
+        memberRepository.deleteTokenByMemberId(memberId);
+    }
 }

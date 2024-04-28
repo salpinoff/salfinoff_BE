@@ -8,4 +8,6 @@ public interface TokenJpaRepository extends JpaRepository<Token, Long> {
     Optional<Token> findByMemberId(Long memberId);
 
     Optional<Token> findByRefreshToken(String refreshToken);
+
+    void deleteByMemberId(Long memberId);
 }

@@ -52,4 +52,9 @@ public class MemberRepositoryImpl implements MemberRepository {
         return memberJpaRepository.findById(memberId)
                 .orElseThrow(() -> new NotFoundException("존재하지 않는 회원입니다."));
     }
+
+    @Override
+    public void deleteTokenByMemberId(Long memberId) {
+        tokenJpaRepository.deleteByMemberId(memberId);
+    }
 }
