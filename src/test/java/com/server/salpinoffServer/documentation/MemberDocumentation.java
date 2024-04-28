@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import static com.server.salpinoffServer.member.acceptance.MemberSteps.로그인_카카오;
+import static com.server.salpinoffServer.member.acceptance.MemberSteps.토큰_재발급;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -19,7 +20,7 @@ public class MemberDocumentation extends Documentation {
     private MemberService memberService;
 
     @Test
-    void 카카오_로그인() {
+    void loginKakao() {
         //given
         LoginResponse loginResponse = new LoginResponse(1L, "accessToken", "refreshToken");
 
@@ -30,4 +31,17 @@ public class MemberDocumentation extends Documentation {
         //then
         로그인_카카오(getRequestSpecification("login-kakao"), "code");
     }
+
+    @Test
+    void refreshToken() {
+        //given
+        LoginResponse loginResponse = new LoginResponse(1L, "accessToken", "refreshToken");
+
+        //when
+        when(memberService.refreshToken(any())).thenReturn(loginResponse);
+
+        //then
+        토큰_재발급(getRequestSpecification("token-refresh"), "refreshToken");
+    }
+
 }

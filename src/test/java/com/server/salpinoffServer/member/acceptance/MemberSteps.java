@@ -30,4 +30,20 @@ public class MemberSteps {
                 .log().all().extract();
     }
 
+    public static ExtractableResponse<Response> 토큰_재발급(String refreshToken) {
+        return 토큰_재발급(RestAssured.given().log().all(), refreshToken);
+    }
+
+    public static ExtractableResponse<Response> 토큰_재발급(RequestSpecification requestSpecification, String refreshToken) {
+        Map<String, String> params = new HashMap<>();
+        params.put("refreshToken", refreshToken);
+
+        return requestSpecification
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .body(params)
+                .when().post(PATH_PREFIX + "/token/refresh")
+                .then().statusCode(HttpStatus.OK.value())
+                .log().all().extract();
+    }
+
 }
