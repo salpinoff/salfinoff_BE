@@ -47,3 +47,11 @@ Response body
 | accessToken | String | access token | O
 | refreshToken | String | refresh token | O
 |===
+
+=== 로그아웃
+
+NOTE: 로그아웃 API 호출과 동시에 헤더에서 accessToken 제거 해주셔야 합니다.
+
+operation::logout[snippets='http-request']
+
+operation::logout[snippets='http-response']
