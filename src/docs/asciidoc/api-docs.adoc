@@ -55,3 +55,105 @@ NOTE: 로그아웃 API 호출과 동시에 헤더에서 accessToken 제거 해�
 operation::logout[snippets='http-request']
 
 operation::logout[snippets='http-response']
+
+[[monster]]
+== 몬스터
+
+=== 몬스터 삭제
+
+operation::monster-delete[snippets='http-request']
+Path Params
+|===
+| key | type | description | required
+| monsterId | Long | 몬스터 고유 id (pk) | O
+|===
+
+operation::monster-delete[snippets='http-response']
+
+=== 몬스터 인터렉션
+
+operation::monster-interaction[snippets='http-request']
+Path Params
+|===
+| key | type | description | required
+| monsterId | Long | 몬스터 고유 id (pk) | O
+|===
+RequestBody
+|===
+| key | type | description | required
+| interactionCount | int | 인터렉션 수 | O
+|===
+
+operation::monster-interaction[snippets='http-response']
+ResponseBody
+|===
+| key | type | description | required
+| monsterId | Long | 몬스터 고유 id (pk) | O
+| remainingInteractionCount | int | 남은 인터렉션 수 (hp) | O
+|===
+
+=== 응원 메시지 목록 조회
+
+operation::monster-messages-read[snippets='http-request']
+PathParams
+|===
+| key | type | description | required
+| monsterId | Long | 몬스터 고유 id (pk) | O
+|===
+RequestParams
+|===
+| key | type | description | required
+| page | int | 페이지 +
+시작 페이지: 1 +
+기본 값: 1 | O
+| size | int | 한 페이지에 출력되는 컨텐츠 개수 +
+기본 값: 10 | O
+|===
+
+operation::monster-messages-read[snippets='http-response']
+Response body
+|===
+| key | type | description | required
+| content | List<MessageDto> | 컨텐츠 | O
+| size | int | 한 페이지에 출력되는 컨텐츠 개수 | O
+| page | int | 페이지 | O
+| totalElements | int | 총 컨텐츠 개수 | O
+|===
+
+MessageDto
+|===
+| key | type | description | required
+| messageId | Long | 응원 메시지 고유 id (pk) | O
+| sender | String | 보낸 사람 이름 | O
+| content | String | 내용 | O
+| checked | Boolean | 확인 여부 | O
+|===
+
+=== 응원 메시지 확인
+
+operation::monster-messages-check[snippets='http-request']
+Path Params
+|===
+| key | type | description | required
+| monsterId | Long | 몬스터 고유 id (pk) | O
+| messageId | Long | 응원 메시지 고유 id (pk) | O
+|===
+
+operation::monster-messages-check[snippets='http-response']
+
+=== 응원의 메시지 보내기
+
+operation::encouragement-message-send[snippets='http-request']
+Path Params
+|===
+| key | type | description | required
+| monsterId | Long | 몬스터 고유 id (pk) | O
+|===
+RequestBody
+|===
+| key | type | description | required
+| sender | String | 보낸 사람 이름 | O
+| content | String | 내용 | O
+|===
+
+operation::encouragement-message-send[snippets='http-response']

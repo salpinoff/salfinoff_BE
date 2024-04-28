@@ -54,7 +54,7 @@ public class MonsterDocumentation extends Documentation {
                 new MonsterMessagesResponse(3L, "박태준", "빵빵이 홧팅", false));
 
         when(monsterService.getMonsterMessages(anyLong(), anyLong(), any()))
-                .thenReturn(new PageImpl<>(messages, PageRequest.of(1, 1), 2L));
+                .thenReturn(new PageImpl<>(messages, PageRequest.of(0, 10), 2L));
 
         //then
         응원_메시지_조회(getRequestSpecification("monster-messages-read").auth().oauth2("accessToken"), 1L);
