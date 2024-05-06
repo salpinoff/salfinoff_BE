@@ -45,6 +45,13 @@ public class MonsterController {
         return ResponseEntity.ok().build();
     }
 
+    @PutMapping("/{monsterId}")
+    public ResponseEntity<Void> updateMonster(@AuthenticationPrincipal MemberInfo memberInfo,
+                                              @PathVariable(value = "monsterId") Long monsterId,
+                                              @Valid MonsterModificationRequest request) {
+        return ResponseEntity.ok().build();
+    }
+
     @PostMapping("/{monsterId}/interactions")
     public ResponseEntity<MonsterInteractionResponse> interactMonster(@PathVariable(value = "monsterId") Long monsterId,
                                                                       @AuthenticationPrincipal MemberInfo memberInfo,
