@@ -137,6 +137,24 @@ MonsterDto
 종류: ... (정해야함) | O
 |===
 
+=== 나의 대표 몬스터 조회
+
+operation::monster-my-rep-read[snippets='http-request']
+
+operation::monster-my-rep-read[snippets='http-response']
+|===
+| key | type | description | required
+| monsterId | Long | 몬스터 고유 id (pk) | O
+| interactionCount | int | 인터렉션 수 | O
+| currentInteractionCount | int | 현재 인터렉션 수 | O
+| content | String | 친구들에게 공유할 메시지 | O
+| emotion | String | 감정 +
+종류: DEPRESSION | O
+| monsterName | String | 몬스터 이름 | O
+| monsterDecoration.backgroundColor | String | 배경색 +
+종류: ... (정해야함) | O
+|===
+
 === 몬스터 수정
 operation::monster-modification[snippets='http-request']
 Path Params
