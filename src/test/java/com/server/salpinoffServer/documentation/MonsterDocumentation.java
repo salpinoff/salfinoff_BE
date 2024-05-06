@@ -79,7 +79,7 @@ public class MonsterDocumentation extends Documentation {
         );
 
         PageImpl<MonsterDetailsResponse> response =
-                new PageImpl<>(monsterDetailsResponses, PageRequest.of(1, 10), 2L);
+                new PageImpl<>(monsterDetailsResponses, PageRequest.of(0, 10), 2L);
 
         //when
         when(monsterService.getMonstersByMember(anyLong(), any())).thenReturn(response);
@@ -97,7 +97,7 @@ public class MonsterDocumentation extends Documentation {
         Map<String, Object> variables = 몬스터_수정_요청값("화나서 치킨 시킴 ㅋㅋ");
 
         //then
-        몬스터_수정(getRequestSpecification("monster-creation").auth().oauth2("accessToken"),
+        몬스터_수정(getRequestSpecification("monster-modification").auth().oauth2("accessToken"),
                 1L, variables);
     }
 

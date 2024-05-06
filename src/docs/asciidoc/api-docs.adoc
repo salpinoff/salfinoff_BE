@@ -59,16 +59,99 @@ operation::logout[snippets='http-response']
 [[monster]]
 == 몬스터
 
-=== 몬스터 삭제
+=== 몬스터 생성
 
-operation::monster-delete[snippets='http-request']
+operation::monster-creation[snippets='http-request']
+RequestBody
+|===
+| key | type | description | required
+| interactionCount | int | 인터렉션 수 | O
+| content | String | 친구들에게 공유할 메시지 | O
+| emotion | String | 감정 +
+종류: DEPRESSION | O
+| monsterName | String | 몬스터 이름 | O
+| monsterDecoration.backgroundColor | String | 배경색 +
+종류: ... (정해야함) | O
+|===
+
+operation::monster-creation[snippets='http-response']
+
+=== 몬스터 상세 조회
+
+NOTE: 메인 유저, 서브 유저 모두 사용 가능합니다.
+
+operation::monster-details-read[snippets='http-request']
 Path Params
 |===
 | key | type | description | required
 | monsterId | Long | 몬스터 고유 id (pk) | O
 |===
 
-operation::monster-delete[snippets='http-response']
+operation::monster-details-read[snippets='http-response']
+|===
+| key | type | description | required
+| monsterId | Long | 몬스터 고유 id (pk) | O
+| interactionCount | int | 인터렉션 수 | O
+| currentInteractionCount | int | 현재 인터렉션 수 | O
+| content | String | 친구들에게 공유할 메시지 | O
+| emotion | String | 감정 +
+종류: DEPRESSION | O
+| monsterName | String | 몬스터 이름 | O
+| monsterDecoration.backgroundColor | String | 배경색 +
+종류: ... (정해야함) | O
+|===
+
+=== 나의 몬스터 목록 조회
+operation::monster-my-read[snippets='http-request']
+RequestParams
+|===
+| key | type | description | required
+| page | int | 페이지 +
+시작 페이지: 1 +
+기본 값: 1 | O
+| size | int | 한 페이지에 출력되는 컨텐츠 개수 +
+기본 값: 10 | O
+|===
+
+operation::monster-my-read[snippets='http-response']
+Response body
+|===
+| key | type | description | required
+| content | List<MonsterDto> | 컨텐츠 | O
+| size | int | 한 페이지에 출력되는 컨텐츠 개수 | O
+| page | int | 페이지 | O
+| totalElements | int | 총 컨텐츠 개수 | O
+|===
+
+MonsterDto
+|===
+| key | type | description | required
+| monsterId | Long | 몬스터 고유 id (pk) | O
+| interactionCount | int | 인터렉션 수 | O
+| currentInteractionCount | int | 현재 인터렉션 수 | O
+| content | String | 친구들에게 공유할 메시지 | O
+| emotion | String | 감정 +
+종류: DEPRESSION | O
+| monsterName | String | 몬스터 이름 | O
+| monsterDecoration.backgroundColor | String | 배경색 +
+종류: ... (정해야함) | O
+|===
+
+=== 몬스터 수정
+operation::monster-modification[snippets='http-request']
+Path Params
+|===
+| key | type | description | required
+| monsterId | Long | 몬스터 고유 id (pk) | O
+|===
+
+RequestBody
+|===
+| key | type | description | required
+| content | String | 친구들에게 공유할 메시지 | O
+|===
+
+operation::monster-modification[snippets='http-response']
 
 === 몬스터 인터렉션
 
@@ -89,7 +172,7 @@ ResponseBody
 |===
 | key | type | description | required
 | monsterId | Long | 몬스터 고유 id (pk) | O
-| remainingInteractionCount | int | 남은 인터렉션 수 (hp) | O
+| currentInteractionCount | int | 현재 인터렉션 수 | O
 |===
 
 === 응원 메시지 목록 조회
