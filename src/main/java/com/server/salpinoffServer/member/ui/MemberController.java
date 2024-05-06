@@ -55,4 +55,12 @@ public class MemberController {
 
         return ResponseEntity.ok().build();
     }
+
+    @PutMapping("/my")
+    public ResponseEntity<Void> updateMemberInfo(@AuthenticationPrincipal MemberInfo memberInfo,
+                                                 @RequestBody @Valid MemberInfoRequest request) {
+        memberService.updateMemberInfo(memberInfo.memberId(), request);
+
+        return ResponseEntity.ok().build();
+    }
 }
