@@ -19,6 +19,7 @@ public class MonsterDocumentation extends Documentation {
 
     @MockBean
     private MonsterService monsterService;
+/*
 
     @Test
     void deleteMonster() {
@@ -28,6 +29,7 @@ public class MonsterDocumentation extends Documentation {
         //then
         몬스터_삭제(getRequestSpecification("monster-delete").auth().oauth2("accessToken"), 1L);
     }
+*/
 
     @Test
     void interactMonster() {

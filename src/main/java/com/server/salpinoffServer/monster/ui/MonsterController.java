@@ -45,12 +45,6 @@ public class MonsterController {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/{monsterId}")
-    public ResponseEntity<Void> deleteMonster(@PathVariable(value = "monsterId") Long monsterId,
-                                              @AuthenticationPrincipal MemberInfo memberInfo) {
-        return ResponseEntity.ok().build();
-    }
-
     @PostMapping("/{monsterId}/interactions")
     public ResponseEntity<MonsterInteractionResponse> interactMonster(@PathVariable(value = "monsterId") Long monsterId,
                                                                       @AuthenticationPrincipal MemberInfo memberInfo,

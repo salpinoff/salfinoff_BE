@@ -13,6 +13,7 @@ import java.util.Map;
 public class MonsterSteps {
 
     public static final String PATH_PREFIX = "api/v1/monsters";
+/*
 
     public static ExtractableResponse<Response> 몬스터_삭제(Long monsterId) {
         return 몬스터_삭제(RestAssured.given().log().all(), monsterId);
@@ -27,6 +28,7 @@ public class MonsterSteps {
                 .then().statusCode(HttpStatus.OK.value())
                 .log().all().extract();
     }
+*/
 
     public static ExtractableResponse<Response> 몬스터_인터렉션(Long monsterId, int interactionCount) {
         return 몬스터_인터렉션(RestAssured.given().log().all(), monsterId, interactionCount);
