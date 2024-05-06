@@ -5,6 +5,7 @@ import com.server.salpinoffServer.member.service.MemberService;
 import com.server.salpinoffServer.member.service.OAuthManager;
 import com.server.salpinoffServer.member.service.dto.LoginKakaoRequest;
 import com.server.salpinoffServer.member.service.dto.LoginResponse;
+import com.server.salpinoffServer.member.service.dto.TokenResponse;
 import com.server.salpinoffServer.member.service.dto.RefreshTokenRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -29,8 +30,8 @@ public class MemberController {
     }
 
     @PostMapping("/token/refresh")
-    public ResponseEntity<LoginResponse> refreshToken(@Valid @RequestBody RefreshTokenRequest request) {
-        LoginResponse response = memberService.refreshToken(request);
+    public ResponseEntity<TokenResponse> refreshToken(@Valid @RequestBody RefreshTokenRequest request) {
+        TokenResponse response = memberService.refreshToken(request);
 
         return ResponseEntity.ok(response);
     }

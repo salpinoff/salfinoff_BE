@@ -5,6 +5,7 @@ import com.server.salpinoffServer.member.domain.Member;
 import com.server.salpinoffServer.member.domain.Token;
 import com.server.salpinoffServer.member.service.dto.LoginResponse;
 import com.server.salpinoffServer.member.service.dto.RefreshTokenRequest;
+import com.server.salpinoffServer.member.service.dto.TokenResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
@@ -31,11 +32,13 @@ public class MemberService {
 
         String accessToken = jwtManager.createAccessToken(member);
 
-        return new LoginResponse(member.getId(), accessToken, refreshToken);
+        // TODO 몬스터 기능 만들어지면 수정하기
+        return new LoginResponse(member.getId(), accessToken, refreshToken, member.getUsername(),
+                member.signUpStatus(false).value());
     }
 
     @Transactional
-    public LoginResponse refreshToken(RefreshTokenRequest request) {
+    public TokenResponse refreshToken(RefreshTokenRequest request) {
         Token token = memberRepository.getTokenByRefreshToken(request.getRefreshToken());
 
         if (token.isExpired(jwtManager)) {
@@ -48,7 +51,7 @@ public class MemberService {
         String refreshToken = jwtManager.createRefreshToken(member);
         token.changeRefreshToken(refreshToken);
 
-        return new LoginResponse(member.getId(), accessToken, refreshToken);
+        return new TokenResponse(member.getId(), accessToken, refreshToken);
     }
 
     @Transactional
