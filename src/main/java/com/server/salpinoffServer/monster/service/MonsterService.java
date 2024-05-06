@@ -1,5 +1,6 @@
 package com.server.salpinoffServer.monster.service;
 
+import com.server.salpinoffServer.monster.service.dto.MonsterDetailsResponse;
 import com.server.salpinoffServer.monster.service.dto.MonsterInteractionRequest;
 import com.server.salpinoffServer.monster.service.dto.MonsterInteractionResponse;
 import com.server.salpinoffServer.monster.service.dto.MonsterMessagesResponse;
@@ -16,7 +17,7 @@ public class MonsterService {
 
     @Transactional
     public MonsterInteractionResponse interactMonster(Long monsterId, Long memberId, MonsterInteractionRequest request) {
-        return new MonsterInteractionResponse();
+        return null;
     }
 
     @Transactional(readOnly = true)
@@ -24,4 +25,11 @@ public class MonsterService {
         return new PageImpl<>(List.of(), pageable, 0L);
     }
 
+    public MonsterDetailsResponse getMonster(Long monsterId) {
+        return null;
+    }
+
+    public Page<MonsterDetailsResponse> getMonstersByMember(Long memberId, Pageable pageable) {
+        return null;
+    }
 }

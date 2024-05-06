@@ -4,10 +4,7 @@ import com.server.salpinoffServer.infra.auth.dto.MemberInfo;
 import com.server.salpinoffServer.infra.ui.dto.PageRequest;
 import com.server.salpinoffServer.infra.ui.dto.PageResponse;
 import com.server.salpinoffServer.monster.service.MonsterService;
-import com.server.salpinoffServer.monster.service.dto.EncouragementMessageRequest;
-import com.server.salpinoffServer.monster.service.dto.MonsterInteractionRequest;
-import com.server.salpinoffServer.monster.service.dto.MonsterInteractionResponse;
-import com.server.salpinoffServer.monster.service.dto.MonsterMessagesResponse;
+import com.server.salpinoffServer.monster.service.dto.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,6 +18,32 @@ import org.springframework.web.bind.annotation.*;
 public class MonsterController {
 
     private final MonsterService monsterService;
+
+    /**
+     * 모든 유저들에게 열어야함
+     */
+    @GetMapping("/{monsterId}")
+    public ResponseEntity<MonsterDetailsResponse> getMonster(@PathVariable(value = "monsterId") Long monsterId) {
+        MonsterDetailsResponse response = monsterService.getMonster(monsterId);
+
+        return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping("/my")
+    public ResponseEntity<PageResponse<MonsterDetailsResponse>> getMonstersByMember(
+            @AuthenticationPrincipal MemberInfo memberInfo,
+            @Valid PageRequest pageRequest) {
+
+        Page<MonsterDetailsResponse> response = monsterService.getMonstersByMember(memberInfo.memberId(), pageRequest.getPageable());
+
+        return ResponseEntity.ok().body(new PageResponse<>(response));
+    }
+
+    @PostMapping
+    public ResponseEntity<Void> createMonster(@AuthenticationPrincipal MemberInfo memberInfo,
+                                              @Valid MonsterCreationRequest request) {
+        return ResponseEntity.ok().build();
+    }
 
     @DeleteMapping("/{monsterId}")
     public ResponseEntity<Void> deleteMonster(@PathVariable(value = "monsterId") Long monsterId,
