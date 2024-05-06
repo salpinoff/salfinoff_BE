@@ -42,6 +42,19 @@ public class MonsterSteps {
                 .log().all().extract();
     }
 
+    public static ExtractableResponse<Response> 나의_대표_퇴사몬_조회(String accessToken) {
+        return 나의_대표_퇴사몬_조회(RestAssured.given().auth().oauth2(accessToken).log().all());
+    }
+
+    public static ExtractableResponse<Response> 나의_대표_퇴사몬_조회(RequestSpecification requestSpecification) {
+
+        return requestSpecification
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .when().get(PATH_PREFIX + "/my/rep")
+                .then().statusCode(HttpStatus.OK.value())
+                .log().all().extract();
+    }
+
     public static Map<String, Object> 몬스터_생성_요청값(String monsterName) {
         Map<String, Object> req = new HashMap<>();
 

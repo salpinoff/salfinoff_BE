@@ -39,6 +39,14 @@ public class MonsterController {
         return ResponseEntity.ok().body(new PageResponse<>(response));
     }
 
+    @GetMapping("/my/rep")
+    public ResponseEntity<MonsterDetailsResponse> getRepMonsterByMember(@AuthenticationPrincipal MemberInfo memberInfo) {
+
+        MonsterDetailsResponse response = monsterService.getRepMonsterByMember(memberInfo.memberId());
+
+        return ResponseEntity.ok().body(response);
+    }
+
     @PostMapping
     public ResponseEntity<Void> createMonster(@AuthenticationPrincipal MemberInfo memberInfo,
                                               @Valid @RequestBody MonsterCreationRequest request) {

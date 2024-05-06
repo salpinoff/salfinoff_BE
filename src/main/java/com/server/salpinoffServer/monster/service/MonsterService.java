@@ -32,4 +32,8 @@ public class MonsterService {
     public Page<MonsterDetailsResponse> getMonstersByMember(Long memberId, Pageable pageable) {
         return null;
     }
+
+    public MonsterDetailsResponse getRepMonsterByMember(Long memberId) {
+        return null;
+    }
 }

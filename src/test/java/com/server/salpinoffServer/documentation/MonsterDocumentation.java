@@ -89,6 +89,24 @@ public class MonsterDocumentation extends Documentation {
     }
 
     @Test
+    void getRepMonsterByMember() {
+        //given
+        setAccessToken();
+
+        MonsterDecorationResponse monsterDecorationResponse = new MonsterDecorationResponse("BLUE");
+        MonsterDetailsResponse monsterDetailsResponse =
+                new MonsterDetailsResponse(1L, "빡침몬", 100,
+                        60, "DEPRESSION", "거 참 퇴사하기 딱 좋은 날씨네",
+                        monsterDecorationResponse);
+
+        //when
+        when(monsterService.getRepMonsterByMember(anyLong())).thenReturn(monsterDetailsResponse);
+
+        //then
+        나의_대표_퇴사몬_조회(getRequestSpecification("monster-my-rep-read").auth().oauth2("accessToken"));
+    }
+
+    @Test
     void updateMonster() {
         //given
         setAccessToken();
