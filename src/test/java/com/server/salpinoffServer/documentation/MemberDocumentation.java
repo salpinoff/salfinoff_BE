@@ -7,6 +7,8 @@ import com.server.salpinoffServer.member.service.dto.TokenResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.util.Map;
+
 import static com.server.salpinoffServer.member.acceptance.MemberSteps.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -54,4 +56,27 @@ public class MemberDocumentation extends Documentation {
         로그아웃(getRequestSpecification("logout").auth().oauth2("accessToken"));
     }
 
+    @Test
+    void registerMemberInfo() {
+        //given
+        setAccessToken();
+
+        //when
+        Map<String, Object> request = 회원정보_등록_요청값("빵빵이");
+
+        //then
+        회원정보_등록(getRequestSpecification("member-info-registration").auth().oauth2("accessToken"), request);
+    }
+
+    @Test
+    void updateMemberInfo() {
+        //given
+        setAccessToken();
+
+        //when
+        Map<String, Object> request = 회원정보_수정_요청값("옥지");
+
+        //then
+        회원정보_수정(getRequestSpecification("member-info-registration").auth().oauth2("accessToken"), request);
+    }
 }

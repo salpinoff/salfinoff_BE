@@ -58,4 +58,50 @@ public class MemberSteps {
                 .then().statusCode(HttpStatus.OK.value())
                 .log().all().extract();
     }
+
+    public static Map<String, Object> 회원정보_등록_요청값(String username) {
+        Map<String, Object> req = new HashMap<>();
+
+        req.put("username", username);
+
+        return req;
+    }
+
+    public static ExtractableResponse<Response> 회원정보_등록(String accessToken, Map<String, Object> variables) {
+        return 회원정보_등록(RestAssured.given().auth().oauth2(accessToken).log().all(), variables);
+    }
+
+    public static ExtractableResponse<Response> 회원정보_등록(RequestSpecification requestSpecification,
+                                                        Map<String, Object> variables) {
+
+        return requestSpecification
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .body(variables)
+                .when().post(PATH_PREFIX + "/my")
+                .then().statusCode(HttpStatus.OK.value())
+                .log().all().extract();
+    }
+
+    public static Map<String, Object> 회원정보_수정_요청값(String username) {
+        Map<String, Object> req = new HashMap<>();
+
+        req.put("username", username);
+
+        return req;
+    }
+
+    public static ExtractableResponse<Response> 회원정보_수정(String accessToken, Map<String, Object> variables) {
+        return 회원정보_수정(RestAssured.given().auth().oauth2(accessToken).log().all(), variables);
+    }
+
+    public static ExtractableResponse<Response> 회원정보_수정(RequestSpecification requestSpecification,
+                                                        Map<String, Object> variables) {
+
+        return requestSpecification
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .body(variables)
+                .when().put(PATH_PREFIX + "/my")
+                .then().statusCode(HttpStatus.OK.value())
+                .log().all().extract();
+    }
 }
