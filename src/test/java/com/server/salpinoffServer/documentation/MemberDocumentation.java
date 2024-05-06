@@ -3,6 +3,7 @@ package com.server.salpinoffServer.documentation;
 import com.server.salpinoffServer.member.service.MemberService;
 import com.server.salpinoffServer.member.service.OAuthManager;
 import com.server.salpinoffServer.member.service.dto.LoginResponse;
+import com.server.salpinoffServer.member.service.dto.TokenResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
@@ -21,7 +22,8 @@ public class MemberDocumentation extends Documentation {
     @Test
     void loginKakao() {
         //given
-        LoginResponse loginResponse = new LoginResponse(1L, "accessToken", "refreshToken");
+        LoginResponse loginResponse = new LoginResponse(1L, "accessToken", "refreshToken",
+                "빵빵이", 102);
 
         //when
         when(oAuthManager.findSocialKeyByKakao(any())).thenReturn("socialKey");
@@ -34,10 +36,10 @@ public class MemberDocumentation extends Documentation {
     @Test
     void refreshToken() {
         //given
-        LoginResponse loginResponse = new LoginResponse(1L, "accessToken", "refreshToken");
+        TokenResponse tokenResponse = new TokenResponse(1L, "accessToken", "refreshToken");
 
         //when
-        when(memberService.refreshToken(any())).thenReturn(loginResponse);
+        when(memberService.refreshToken(any())).thenReturn(tokenResponse);
 
         //then
         토큰_재발급(getRequestSpecification("token-refresh"), "refreshToken");
