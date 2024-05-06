@@ -1,6 +1,8 @@
 package com.server.salpinoffServer.documentation;
 
 import com.server.salpinoffServer.monster.service.MonsterService;
+import com.server.salpinoffServer.monster.service.dto.MonsterDecorationResponse;
+import com.server.salpinoffServer.monster.service.dto.MonsterDetailsResponse;
 import com.server.salpinoffServer.monster.service.dto.MonsterInteractionResponse;
 import com.server.salpinoffServer.monster.service.dto.MonsterMessagesResponse;
 import org.junit.jupiter.api.Test;
@@ -9,6 +11,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
+import java.util.Map;
 
 import static com.server.salpinoffServer.monster.acceptance.MonsterSteps.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -30,6 +33,73 @@ public class MonsterDocumentation extends Documentation {
         몬스터_삭제(getRequestSpecification("monster-delete").auth().oauth2("accessToken"), 1L);
     }
 */
+
+    @Test
+    void createMonster() {
+        //given
+        setAccessToken();
+
+        //when
+        Map<String, Object> variables = 몬스터_생성_요청값("빡침몬");
+
+        //then
+        몬스터_생성(getRequestSpecification("monster-creation").auth().oauth2("accessToken"),
+                variables);
+    }
+
+    @Test
+    void getMonster() {
+        //given
+        MonsterDecorationResponse monsterDecorationResponse = new MonsterDecorationResponse("BLUE");
+        MonsterDetailsResponse monsterDetailsResponse =
+                new MonsterDetailsResponse(1L, "빡침몬", 100,
+                        60, "DEPRESSION", "거 참 퇴사하기 딱 좋은 날씨네",
+                        monsterDecorationResponse);
+
+        //when
+        when(monsterService.getMonster(1L)).thenReturn(monsterDetailsResponse);
+
+        //then
+        몬스터_상세_조회(getRequestSpecification("monster-details-read"), 1L);
+    }
+
+    @Test
+    void getMyMonsters() {
+        //given
+        setAccessToken();
+
+        MonsterDecorationResponse monsterDecorationResponse = new MonsterDecorationResponse("BLUE");
+        List<MonsterDetailsResponse> monsterDetailsResponses = List.of(
+                new MonsterDetailsResponse(1L, "빡침몬", 100,
+                        60, "DEPRESSION", "거 참 퇴사하기 딱 좋은 날씨네",
+                        monsterDecorationResponse),
+                new MonsterDetailsResponse(2L, "화남몬", 150,
+                        10, "DEPRESSION", "화난건 뻥이고 다들 홧팅해라~!",
+                        monsterDecorationResponse)
+        );
+
+        PageImpl<MonsterDetailsResponse> response =
+                new PageImpl<>(monsterDetailsResponses, PageRequest.of(1, 10), 2L);
+
+        //when
+        when(monsterService.getMonstersByMember(anyLong(), any())).thenReturn(response);
+
+        //then
+        나의_몬스터_목록_조회(getRequestSpecification("monster-my-read").auth().oauth2("accessToken"));
+    }
+
+    @Test
+    void updateMonster() {
+        //given
+        setAccessToken();
+
+        //when
+        Map<String, Object> variables = 몬스터_수정_요청값("화나서 치킨 시킴 ㅋㅋ");
+
+        //then
+        몬스터_수정(getRequestSpecification("monster-creation").auth().oauth2("accessToken"),
+                1L, variables);
+    }
 
     @Test
     void interactMonster() {

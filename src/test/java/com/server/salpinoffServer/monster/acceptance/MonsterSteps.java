@@ -36,6 +36,7 @@ public class MonsterSteps {
 
         return requestSpecification
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .params("page", 1, "size", 10)
                 .when().get(PATH_PREFIX + "/my")
                 .then().statusCode(HttpStatus.OK.value())
                 .log().all().extract();

@@ -41,14 +41,14 @@ public class MonsterController {
 
     @PostMapping
     public ResponseEntity<Void> createMonster(@AuthenticationPrincipal MemberInfo memberInfo,
-                                              @Valid MonsterCreationRequest request) {
+                                              @Valid @RequestBody MonsterCreationRequest request) {
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/{monsterId}")
     public ResponseEntity<Void> updateMonster(@AuthenticationPrincipal MemberInfo memberInfo,
                                               @PathVariable(value = "monsterId") Long monsterId,
-                                              @Valid MonsterModificationRequest request) {
+                                              @Valid @RequestBody MonsterModificationRequest request) {
         return ResponseEntity.ok().build();
     }
 
