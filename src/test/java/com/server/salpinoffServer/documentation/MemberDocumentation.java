@@ -77,6 +77,6 @@ public class MemberDocumentation extends Documentation {
         Map<String, Object> request = 회원정보_수정_요청값("옥지");
 
         //then
-        회원정보_수정(getRequestSpecification("member-info-registration").auth().oauth2("accessToken"), request);
+        회원정보_수정(getRequestSpecification("member-info-modification").auth().oauth2("accessToken"), request);
     }
 }

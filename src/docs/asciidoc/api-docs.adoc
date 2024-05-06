@@ -56,6 +56,31 @@ operation::logout[snippets='http-request']
 
 operation::logout[snippets='http-response']
 
+[[member]]
+== 회원
+
+=== 회원 정보 등록
+
+operation::member-info-registration[snippets='http-request']
+Request body
+|===
+| key | type | description | required
+| username | String | 닉네임 | O
+|===
+
+operation::member-info-registration[snippets='http-response']
+
+=== 회원 정보 수정
+
+operation::member-info-modification[snippets='http-request']
+Request body
+|===
+| key | type | description | required
+| username | String | 닉네임 | O
+|===
+
+operation::member-info-modification[snippets='http-response']
+
 [[monster]]
 == 몬스터
 
