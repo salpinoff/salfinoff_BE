@@ -4,6 +4,7 @@ import com.server.salpinoffServer.infra.auth.jwt.JwtManager;
 import com.server.salpinoffServer.member.domain.Member;
 import com.server.salpinoffServer.member.domain.Token;
 import com.server.salpinoffServer.member.service.dto.LoginResponse;
+import com.server.salpinoffServer.member.service.dto.MemberInfoRequest;
 import com.server.salpinoffServer.member.service.dto.RefreshTokenRequest;
 import com.server.salpinoffServer.member.service.dto.TokenResponse;
 import lombok.RequiredArgsConstructor;
@@ -57,5 +58,10 @@ public class MemberService {
     @Transactional
     public void logout(Long memberId) {
         memberRepository.deleteTokenByMemberId(memberId);
+    }
+
+    @Transactional
+    public void updateMemberInfo(Long memberId, MemberInfoRequest request) {
+        memberRepository.getMember(memberId).update(request);
     }
 }

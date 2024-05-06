@@ -1,5 +1,6 @@
 package com.server.salpinoffServer.member.domain;
 
+import com.server.salpinoffServer.member.service.dto.MemberInfoRequest;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -33,6 +34,10 @@ public class Member {
 
     public static Member toUser(String socialKey) {
         return new Member(socialKey, Authority.USER);
+    }
+
+    public void update(MemberInfoRequest request) {
+        this.username = request.getUsername();
     }
 
     public enum Authority {

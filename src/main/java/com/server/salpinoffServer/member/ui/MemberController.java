@@ -3,10 +3,7 @@ package com.server.salpinoffServer.member.ui;
 import com.server.salpinoffServer.infra.auth.dto.MemberInfo;
 import com.server.salpinoffServer.member.service.MemberService;
 import com.server.salpinoffServer.member.service.OAuthManager;
-import com.server.salpinoffServer.member.service.dto.LoginKakaoRequest;
-import com.server.salpinoffServer.member.service.dto.LoginResponse;
-import com.server.salpinoffServer.member.service.dto.TokenResponse;
-import com.server.salpinoffServer.member.service.dto.RefreshTokenRequest;
+import com.server.salpinoffServer.member.service.dto.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -44,9 +41,17 @@ public class MemberController {
     }
 
     @GetMapping("/my")
-    public ResponseEntity<Void> getMyInfo(@AuthenticationPrincipal MemberInfo memberInfo) {
+    public ResponseEntity<Void> getMemberInfo(@AuthenticationPrincipal MemberInfo memberInfo) {
 
         System.out.println(memberInfo.memberId());
+
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/my")
+    public ResponseEntity<Void> registerMemberInfo(@AuthenticationPrincipal MemberInfo memberInfo,
+                                                   @RequestBody @Valid MemberInfoRequest request) {
+        memberService.updateMemberInfo(memberInfo.memberId(), request);
 
         return ResponseEntity.ok().build();
     }
