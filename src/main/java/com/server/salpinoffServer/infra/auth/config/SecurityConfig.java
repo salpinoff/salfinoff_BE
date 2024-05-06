@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -43,8 +44,10 @@ public class SecurityConfig {
                 .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtExceptionFilter, JwtAuthorizationFilter.class)
                 .authorizeHttpRequests(registry -> registry
-                        .requestMatchers("/api/v1/members/login/*", "/health", "/redirect",
-                                "/api/v1/members/token/refresh", "api/v1/monsters/{monsterId}/encouragement")
+                        .requestMatchers(HttpMethod.GET, "/api/v1/monsters/{monsterId}", "/health", "/redirect")
+                        .permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/members/login/*", "/api/v1/members/token/refresh",
+                                "api/v1/monsters/{monsterId}/encouragement")
                         .permitAll()
                         .anyRequest().hasAuthority("USER"));
 
