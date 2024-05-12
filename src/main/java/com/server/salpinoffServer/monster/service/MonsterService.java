@@ -1,9 +1,9 @@
 package com.server.salpinoffServer.monster.service;
 
-import com.server.salpinoffServer.monster.service.dto.MonsterDetailsResponse;
-import com.server.salpinoffServer.monster.service.dto.MonsterInteractionRequest;
-import com.server.salpinoffServer.monster.service.dto.MonsterInteractionResponse;
-import com.server.salpinoffServer.monster.service.dto.MonsterMessagesResponse;
+import com.server.salpinoffServer.monster.domain.Monster;
+import com.server.salpinoffServer.monster.domain.MonsterDecoration;
+import com.server.salpinoffServer.monster.service.dto.*;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -11,9 +11,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class MonsterService {
+
+    private final MonsterRepository monsterRepository;
 
     @Transactional
     public MonsterInteractionResponse interactMonster(Long monsterId, Long memberId, MonsterInteractionRequest request) {
@@ -35,5 +39,15 @@ public class MonsterService {
 
     public MonsterDetailsResponse getRepMonsterByMember(Long memberId) {
         return null;
+    }
+
+    @Transactional
+    public void create(Long memberId, MonsterCreationRequest request) {
+        Monster monster = monsterRepository.saveMonster(Monster.from(memberId, request));
+
+        List<MonsterDecoration> monsterDecorations = request.getMonsterDecorations().stream()
+                .map(req -> new MonsterDecoration(monster.getId(), req.getType(), req.getValue())).toList();
+
+        monster.addDecorations(monsterDecorations);
     }
 }
