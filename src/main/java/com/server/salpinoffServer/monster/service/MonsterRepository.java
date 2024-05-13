@@ -5,4 +5,6 @@ import com.server.salpinoffServer.monster.domain.Monster;
 public interface MonsterRepository {
 
     Monster saveMonster(Monster monster);
+
+    Monster getMonster(Long monsterId);
 }

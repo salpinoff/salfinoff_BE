@@ -9,8 +9,8 @@ import lombok.Getter;
 public class MonsterDecorationRequest {
 
     @NotNull
-    private MonsterDecoration.Type type;
+    private MonsterDecoration.Type decorationType;
 
     @NotBlank
-    private String value;
+    private String decorationValue;
 }

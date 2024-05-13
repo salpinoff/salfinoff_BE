@@ -1,5 +1,6 @@
 package com.server.salpinoffServer.monster.acceptance;
 
+import com.server.salpinoffServer.monster.domain.MonsterDecoration;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MonsterSteps {
@@ -62,7 +64,9 @@ public class MonsterSteps {
         req.put("interactionCount", "100");
         req.put("emotion", "DEPRESSION");
         req.put("content", "거 참 퇴사하기 딱 좋은 날씨네");
-        req.put("monsterDecoration", Map.of("backgroundColor", "BLUE"));
+        req.put("monsterDecorations",
+                List.of(Map.of("decorationType", MonsterDecoration.Type.BACKGROUND_COLOR,
+                        "decorationValue", "BLUE")));
 
         return req;
     }

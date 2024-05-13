@@ -23,8 +23,9 @@ public class MonsterController {
      * 모든 유저들에게 열어야함
      */
     @GetMapping("/{monsterId}")
-    public ResponseEntity<MonsterDetailsResponse> getMonster(@PathVariable(value = "monsterId") Long monsterId) {
-        MonsterDetailsResponse response = monsterService.getMonster(monsterId);
+    public ResponseEntity<MonsterDetailsResponse> getMonster(@AuthenticationPrincipal MemberInfo memberInfo,
+                                                             @PathVariable(value = "monsterId") Long monsterId) {
+        MonsterDetailsResponse response = monsterService.getMonster(memberInfo, monsterId);
 
         return ResponseEntity.ok().body(response);
     }

@@ -1,6 +1,7 @@
 package com.server.salpinoffServer.monster.domain;
 
 import com.server.salpinoffServer.monster.service.dto.MonsterCreationRequest;
+import com.server.salpinoffServer.monster.service.dto.MonsterDecorationResponse;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -8,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -27,6 +29,9 @@ public class Monster {
     @Column(nullable = false)
     private int interactionCount;
 
+    @Column(nullable = false)
+    private int currentInteractionCount;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Emotion emotion;
@@ -42,6 +47,7 @@ public class Monster {
         this.memberId = memberId;
         this.monsterName = monsterName;
         this.interactionCount = interactionCount;
+        this.currentInteractionCount = 0;
         this.emotion = emotion;
         this.content = content;
     }
@@ -58,6 +64,18 @@ public class Monster {
 
     public void addDecorations(List<MonsterDecoration> newMonsterDecorations) {
         monsterDecorations.addAll(newMonsterDecorations);
+    }
+
+    public boolean isOwner(Long memberId) {
+        return Objects.equals(this.memberId, memberId);
+    }
+
+    public List<MonsterDecorationResponse> monsterDecorationResponses() {
+        return monsterDecorations.monsterDecorationResponses();
+    }
+
+    public boolean isFreedom() {
+        return interactionCount <= currentInteractionCount;
     }
 
     public enum Emotion {
