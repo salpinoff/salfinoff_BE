@@ -55,11 +55,13 @@ public class MonsterService {
         return MonsterDetailsResponse.of(monster);
     }
 
+    @Transactional(readOnly = true)
     public Page<MonsterDetailsResponse> getMonstersByMember(Long memberId, Pageable pageable) {
         return monsterRepository.findMonstersByMember(memberId, pageable)
                 .map(MonsterDetailsResponse::of);
     }
 
+    @Transactional(readOnly = true)
     public MonsterDetailsResponse getRepMonsterByMember(Long memberId) {
         return MonsterDetailsResponse.of(monsterRepository.getLatestMonsterByMember(memberId));
     }

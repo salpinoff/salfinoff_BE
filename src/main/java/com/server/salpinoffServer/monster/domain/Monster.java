@@ -89,8 +89,11 @@ public class Monster {
     }
 
     public void encourage() {
-        this.currentInteractionCount += RatingRange.getRatingRangeByRating(this.rating)
+        int totalInteractionCount = this.currentInteractionCount + RatingRange.getRatingRangeByRating(this.rating)
                 .getInteractionCountPerEncouragement();
+
+        this.currentInteractionCount = this.interactionCount <= totalInteractionCount ?
+                this.interactionCount : totalInteractionCount;
     }
 
     public enum Emotion {
