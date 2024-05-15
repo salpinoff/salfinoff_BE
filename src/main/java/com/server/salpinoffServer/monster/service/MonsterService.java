@@ -111,6 +111,12 @@ public class MonsterService {
 
     @Transactional
     public void createMonsterMessage(Long monsterId, EncouragementMessageRequest request) {
+        Monster monster = monsterRepository.getMonster(monsterId);
+
+        if (monster.isFreedom()) {
+            throw new NotFoundException("자유를 찾아 떠나가 버린 몬스터입니다.");
+        }
+
         monsterRepository.saveMonsterMessage(MonsterMessage.from(monsterId, request));
     }
 }
