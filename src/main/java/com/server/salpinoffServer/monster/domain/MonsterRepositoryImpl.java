@@ -98,4 +98,15 @@ public class MonsterRepositoryImpl implements MonsterRepository {
     public MonsterMessage saveMonsterMessage(MonsterMessage monsterMessage) {
         return monsterMessageJpaRepository.save(monsterMessage);
     }
+
+    @Override
+    public boolean existsMonsterByMember(Long memberId) {
+        Monster m = queryFactory
+                .select(monster)
+                .from(monster)
+                .where(monster.memberId.eq(memberId))
+                .fetchOne();
+
+        return m != null;
+    }
 }

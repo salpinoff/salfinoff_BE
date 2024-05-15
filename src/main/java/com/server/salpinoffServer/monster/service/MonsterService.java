@@ -119,4 +119,8 @@ public class MonsterService {
 
         monsterRepository.saveMonsterMessage(MonsterMessage.from(monsterId, request));
     }
+
+    public boolean hasMonsterForMember(Long memberId) {
+        return monsterRepository.existsMonsterByMember(memberId);
+    }
 }

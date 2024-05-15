@@ -7,6 +7,7 @@ import com.server.salpinoffServer.member.service.dto.LoginResponse;
 import com.server.salpinoffServer.member.service.dto.MemberInfoRequest;
 import com.server.salpinoffServer.member.service.dto.RefreshTokenRequest;
 import com.server.salpinoffServer.member.service.dto.TokenResponse;
+import com.server.salpinoffServer.monster.service.MonsterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class MemberService {
 
+    private final MonsterService monsterService;
     private final MemberRepository memberRepository;
     private final JwtManager jwtManager;
 
@@ -33,9 +35,10 @@ public class MemberService {
 
         String accessToken = jwtManager.createAccessToken(member);
 
-        // TODO 몬스터 기능 만들어지면 수정하기
+        boolean hasMonster = monsterService.hasMonsterForMember(member.getId());
+
         return new LoginResponse(member.getId(), accessToken, refreshToken, member.getUsername(),
-                member.signUpStatus(false).value());
+                member.signUpStatus(hasMonster).value());
     }
 
     @Transactional

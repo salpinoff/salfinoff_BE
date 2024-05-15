@@ -20,4 +20,6 @@ public interface MonsterRepository {
     MonsterMessage getMonsterMessage(Long messageId);
 
     MonsterMessage saveMonsterMessage(MonsterMessage monsterMessage);
+
+    boolean existsMonsterByMember(Long memberId);
 }
