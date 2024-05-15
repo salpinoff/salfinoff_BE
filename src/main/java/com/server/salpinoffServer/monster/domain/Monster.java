@@ -2,6 +2,7 @@ package com.server.salpinoffServer.monster.domain;
 
 import com.server.salpinoffServer.monster.service.dto.MonsterCreationRequest;
 import com.server.salpinoffServer.monster.service.dto.MonsterDecorationResponse;
+import com.server.salpinoffServer.monster.service.dto.MonsterModificationRequest;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -76,6 +77,10 @@ public class Monster {
 
     public boolean isFreedom() {
         return interactionCount <= currentInteractionCount;
+    }
+
+    public void update(MonsterModificationRequest request) {
+        this.content = request.getContent();
     }
 
     public enum Emotion {

@@ -60,6 +60,8 @@ public class MonsterController {
     public ResponseEntity<Void> updateMonster(@AuthenticationPrincipal MemberInfo memberInfo,
                                               @PathVariable(value = "monsterId") Long monsterId,
                                               @Valid @RequestBody MonsterModificationRequest request) {
+        monsterService.updateMonster(memberInfo.memberId(), monsterId, request);
+
         return ResponseEntity.ok().build();
     }
 

@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.lang.Nullable;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -66,5 +67,16 @@ public class MonsterService {
                 .toList();
 
         monster.addDecorations(monsterDecorations);
+    }
+
+    @Transactional
+    public void updateMonster(Long memberId, Long monsterId, MonsterModificationRequest request) {
+        Monster monster = monsterRepository.getMonster(monsterId);
+
+        if (!monster.isOwner(memberId)) {
+            throw new AccessDeniedException("몬스터 수정 권한이 없습니다.");
+        }
+
+        monster.update(request);
     }
 }
