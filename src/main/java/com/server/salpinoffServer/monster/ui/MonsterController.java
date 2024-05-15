@@ -93,12 +93,6 @@ public class MonsterController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping
-    public ResponseEntity<Void> getMonstersByUser(@AuthenticationPrincipal MemberInfo memberInfo,
-                                                  @Valid PageRequest pageRequest) {
-        return ResponseEntity.ok().build();
-    }
-
     @PostMapping("/{monsterId}/encouragement")
     public ResponseEntity<Void> encourageUser(@PathVariable(value = "monsterId") Long monsterId,
                                               @Valid @RequestBody EncouragementMessageRequest request) {

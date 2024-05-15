@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.server.salpinoffServer.monster.domain.QMonster.*;
+import static com.server.salpinoffServer.monster.domain.QMonsterMessage.*;
 
 @Repository
 @RequiredArgsConstructor
@@ -65,5 +66,24 @@ public class MonsterRepositoryImpl implements MonsterRepository {
                 .where(monster.memberId.eq(memberId));
 
         return PageableExecutionUtils.getPage(monsters, pageable, countQuery::fetchOne);
+    }
+
+    @Override
+    public Page<MonsterMessage> findMonsterMessages(Long monsterId, Pageable pageable) {
+        List<MonsterMessage> monsterMessages = queryFactory
+                .select(monsterMessage)
+                .from(monsterMessage)
+                .where(monsterMessage.monsterId.eq(monsterId))
+                .orderBy(monsterMessage.checked.asc(), monsterMessage.id.desc())
+                .limit(pageable.getPageSize())
+                .offset(pageable.getOffset())
+                .fetch();
+
+        JPAQuery<Long> countQuery = queryFactory
+                .select(monsterMessage.count())
+                .from(monsterMessage)
+                .where(monsterMessage.monsterId.eq(monsterId));
+
+        return PageableExecutionUtils.getPage(monsterMessages, pageable, countQuery::fetchOne);
     }
 }

@@ -31,7 +31,14 @@ public class MonsterService {
 
     @Transactional(readOnly = true)
     public Page<MonsterMessagesResponse> getMonsterMessages(Long monsterId, Long memberId, Pageable pageable) {
-        return new PageImpl<>(List.of(), pageable, 0L);
+        Monster monster = monsterRepository.getMonster(monsterId);
+
+        if (!monster.isOwner(memberId)) {
+            throw new AccessDeniedException("응원 메시지 조회 권한이 없습니다.");
+        }
+
+        return monsterRepository.findMonsterMessages(monsterId, pageable)
+                .map(MonsterMessagesResponse::of);
     }
 
     @Transactional(readOnly = true)
