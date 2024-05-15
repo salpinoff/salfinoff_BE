@@ -2,9 +2,7 @@ package com.server.salpinoffServer.monster.service.dto;
 
 import com.server.salpinoffServer.monster.domain.Monster;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 
 import java.util.List;
@@ -15,8 +13,9 @@ public class MonsterCreationRequest {
     @NotBlank
     private String monsterName;
 
-    @NotNull
-    private int interactionCount;
+    @Min(1)
+    @Max(100)
+    private int rating;
 
     @NotNull
     private Monster.Emotion emotion;

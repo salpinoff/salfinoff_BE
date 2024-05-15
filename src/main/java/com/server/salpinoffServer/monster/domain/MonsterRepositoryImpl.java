@@ -13,13 +13,14 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Objects;
 
-import static com.server.salpinoffServer.monster.domain.QMonster.*;
-import static com.server.salpinoffServer.monster.domain.QMonsterMessage.*;
+import static com.server.salpinoffServer.monster.domain.QMonster.monster;
+import static com.server.salpinoffServer.monster.domain.QMonsterMessage.monsterMessage;
 
 @Repository
 @RequiredArgsConstructor
 public class MonsterRepositoryImpl implements MonsterRepository {
 
+    private final MonsterMessageJpaRepository monsterMessageJpaRepository;
     private final JPAQueryFactory queryFactory;
     private final MonsterJpaRepository monsterJpaRepository;
 
@@ -85,5 +86,11 @@ public class MonsterRepositoryImpl implements MonsterRepository {
                 .where(monsterMessage.monsterId.eq(monsterId));
 
         return PageableExecutionUtils.getPage(monsterMessages, pageable, countQuery::fetchOne);
+    }
+
+    @Override
+    public MonsterMessage getMonsterMessage(Long messageId) {
+        return monsterMessageJpaRepository.findById(messageId)
+                .orElseThrow(() -> new NotFoundException("존재하지 않는 응원 메시지 입니다."));
     }
 }

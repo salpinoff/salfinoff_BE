@@ -61,7 +61,7 @@ public class MonsterSteps {
         Map<String, Object> req = new HashMap<>();
 
         req.put("monsterName", monsterName);
-        req.put("interactionCount", "100");
+        req.put("rating", "100");
         req.put("emotion", "DEPRESSION");
         req.put("content", "거 참 퇴사하기 딱 좋은 날씨네");
         req.put("monsterDecorations",
