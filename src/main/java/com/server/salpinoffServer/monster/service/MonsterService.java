@@ -49,7 +49,8 @@ public class MonsterService {
     }
 
     public Page<MonsterDetailsResponse> getMonstersByMember(Long memberId, Pageable pageable) {
-        return null;
+        return monsterRepository.findMonstersByMember(memberId, pageable)
+                .map(MonsterDetailsResponse::of);
     }
 
     public MonsterDetailsResponse getRepMonsterByMember(Long memberId) {
