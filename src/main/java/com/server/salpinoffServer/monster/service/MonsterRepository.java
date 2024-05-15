@@ -7,4 +7,6 @@ public interface MonsterRepository {
     Monster saveMonster(Monster monster);
 
     Monster getMonster(Long monsterId);
+
+    Monster getLatestMonsterByMember(Long memberId);
 }

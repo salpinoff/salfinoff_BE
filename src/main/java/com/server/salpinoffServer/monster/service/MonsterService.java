@@ -53,7 +53,7 @@ public class MonsterService {
     }
 
     public MonsterDetailsResponse getRepMonsterByMember(Long memberId) {
-        return null;
+        return MonsterDetailsResponse.of(monsterRepository.getLatestMonsterByMember(memberId));
     }
 
     @Transactional
