@@ -6,6 +6,7 @@ import lombok.Getter;
 @Getter
 public class EncouragementMessageRequest {
 
+    @NotBlank
     private String sender;
 
     @NotBlank

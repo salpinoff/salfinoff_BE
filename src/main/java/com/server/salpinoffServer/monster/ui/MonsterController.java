@@ -96,8 +96,10 @@ public class MonsterController {
     }
 
     @PostMapping("/{monsterId}/encouragement")
-    public ResponseEntity<Void> encourageUser(@PathVariable(value = "monsterId") Long monsterId,
-                                              @Valid @RequestBody EncouragementMessageRequest request) {
+    public ResponseEntity<Void> createMonsterMessage(@PathVariable(value = "monsterId") Long monsterId,
+                                                     @Valid @RequestBody EncouragementMessageRequest request) {
+        monsterService.createMonsterMessage(monsterId, request);
+
         return ResponseEntity.ok().build();
     }
 }

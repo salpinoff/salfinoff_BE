@@ -1,5 +1,6 @@
 package com.server.salpinoffServer.monster.domain;
 
+import com.server.salpinoffServer.monster.service.dto.EncouragementMessageRequest;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -28,11 +29,15 @@ public class MonsterMessage {
     @Column(nullable = false)
     private boolean checked;
 
-    public MonsterMessage(Long monsterId, String sender, String content) {
+    private MonsterMessage(Long monsterId, String sender, String content) {
         this.monsterId = monsterId;
         this.sender = sender;
         this.content = content;
         this.checked = false;
+    }
+
+    public static MonsterMessage from(Long monsterId, EncouragementMessageRequest request) {
+        return new MonsterMessage(monsterId, request.getSender(), request.getContent());
     }
 
     public boolean isOwner(Long monsterId) {

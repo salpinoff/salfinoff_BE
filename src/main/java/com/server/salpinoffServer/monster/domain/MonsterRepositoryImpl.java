@@ -93,4 +93,9 @@ public class MonsterRepositoryImpl implements MonsterRepository {
         return monsterMessageJpaRepository.findById(messageId)
                 .orElseThrow(() -> new NotFoundException("존재하지 않는 응원 메시지 입니다."));
     }
+
+    @Override
+    public MonsterMessage saveMonsterMessage(MonsterMessage monsterMessage) {
+        return monsterMessageJpaRepository.save(monsterMessage);
+    }
 }

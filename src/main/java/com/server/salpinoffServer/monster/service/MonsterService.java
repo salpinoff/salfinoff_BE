@@ -108,4 +108,9 @@ public class MonsterService {
         monsterMessage.check();
         monster.encourage();
     }
+
+    @Transactional
+    public void createMonsterMessage(Long monsterId, EncouragementMessageRequest request) {
+        monsterRepository.saveMonsterMessage(MonsterMessage.from(monsterId, request));
+    }
 }
