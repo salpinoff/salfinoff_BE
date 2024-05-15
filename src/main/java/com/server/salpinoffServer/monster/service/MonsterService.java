@@ -8,7 +8,6 @@ import com.server.salpinoffServer.monster.domain.MonsterMessage;
 import com.server.salpinoffServer.monster.service.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.lang.Nullable;
 import org.springframework.security.access.AccessDeniedException;
@@ -17,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -98,5 +96,6 @@ public class MonsterService {
         }
 
         monsterMessage.check();
+        monster.encourage();
     }
 }

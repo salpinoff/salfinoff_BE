@@ -88,6 +88,11 @@ public class Monster {
         this.content = request.getContent();
     }
 
+    public void encourage() {
+        this.currentInteractionCount += RatingRange.getRatingRangeByRating(this.rating)
+                .getInteractionCountPerEncouragement();
+    }
+
     public enum Emotion {
         DEPRESSION
     }
