@@ -90,6 +90,8 @@ public class MonsterController {
     public ResponseEntity<Void> checkMonsterMessage(@PathVariable(value = "monsterId") Long monsterId,
                                                     @PathVariable(value = "messageId") Long messageId,
                                                     @AuthenticationPrincipal MemberInfo memberInfo) {
+        monsterService.checkMonsterMessage(monsterId, messageId, memberInfo.memberId());
+
         return ResponseEntity.ok().build();
     }
 

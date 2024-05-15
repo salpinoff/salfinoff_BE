@@ -4,6 +4,7 @@ import com.server.salpinoffServer.infra.auth.dto.MemberInfo;
 import com.server.salpinoffServer.infra.exception.NotFoundException;
 import com.server.salpinoffServer.monster.domain.Monster;
 import com.server.salpinoffServer.monster.domain.MonsterDecoration;
+import com.server.salpinoffServer.monster.domain.MonsterMessage;
 import com.server.salpinoffServer.monster.service.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -85,5 +86,17 @@ public class MonsterService {
         }
 
         monster.update(request);
+    }
+
+    @Transactional
+    public void checkMonsterMessage(Long monsterId, Long messageId, Long memberId) {
+        MonsterMessage monsterMessage = monsterRepository.getMonsterMessage(messageId);
+        Monster monster = monsterRepository.getMonster(monsterId);
+
+        if (!monsterMessage.isOwner(monsterId) || !monster.isOwner(memberId)) {
+            throw new AccessDeniedException("응원 메시지를 확인할 권한이 없습니다.");
+        }
+
+        monsterMessage.check();
     }
 }

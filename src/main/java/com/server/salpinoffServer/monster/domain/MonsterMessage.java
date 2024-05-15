@@ -5,6 +5,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Objects;
+
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -31,5 +33,13 @@ public class MonsterMessage {
         this.sender = sender;
         this.content = content;
         this.checked = false;
+    }
+
+    public boolean isOwner(Long monsterId) {
+        return Objects.equals(monsterId, this.monsterId);
+    }
+
+    public void check() {
+        this.checked = true;
     }
 }

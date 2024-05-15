@@ -16,4 +16,6 @@ public interface MonsterRepository {
     Page<Monster> findMonstersByMember(Long memberId, Pageable pageable);
 
     Page<MonsterMessage> findMonsterMessages(Long monsterId, Pageable pageable);
+
+    MonsterMessage getMonsterMessage(Long messageId);
 }
