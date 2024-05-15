@@ -1,6 +1,10 @@
 package com.server.salpinoffServer.monster.domain;
 
-import jakarta.persistence.*;
+import com.server.salpinoffServer.infra.entity.BaseEntity;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,11 +12,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class MonsterDecoration {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class MonsterDecoration extends BaseEntity {
 
     @Column(nullable = false)
     private Long monsterId;

@@ -1,5 +1,6 @@
 package com.server.salpinoffServer.monster.domain;
 
+import com.server.salpinoffServer.infra.entity.BaseEntity;
 import com.server.salpinoffServer.monster.service.dto.MonsterCreationRequest;
 import com.server.salpinoffServer.monster.service.dto.MonsterDecorationResponse;
 import com.server.salpinoffServer.monster.service.dto.MonsterModificationRequest;
@@ -16,11 +17,7 @@ import java.util.Objects;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Monster {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Monster extends BaseEntity {
 
     @Column(nullable = false)
     private Long memberId;

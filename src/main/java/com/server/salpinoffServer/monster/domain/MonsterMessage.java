@@ -1,7 +1,10 @@
 package com.server.salpinoffServer.monster.domain;
 
+import com.server.salpinoffServer.infra.entity.BaseEntity;
 import com.server.salpinoffServer.monster.service.dto.EncouragementMessageRequest;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,12 +13,9 @@ import java.util.Objects;
 
 @Entity
 @Getter
+@Table(name = "monster_message")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class MonsterMessage {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class MonsterMessage extends BaseEntity {
 
     @Column(nullable = false)
     private Long monsterId;
