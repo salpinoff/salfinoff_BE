@@ -51,7 +51,7 @@ public class MonsterController {
     @PostMapping
     public ResponseEntity<Void> createMonster(@AuthenticationPrincipal MemberInfo memberInfo,
                                               @Valid @RequestBody MonsterCreationRequest request) {
-        monsterService.create(memberInfo.memberId(), request);
+        monsterService.createMonster(memberInfo.memberId(), request);
 
         return ResponseEntity.ok().build();
     }
