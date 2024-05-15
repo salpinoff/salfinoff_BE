@@ -95,7 +95,8 @@ operation::monster-creation[snippets='http-request']
 RequestBody
 |===
 | key | type | description | required
-| interactionCount | int | 인터렉션 수 | O
+| rating | int | 수치 (스트레스) +
+1 ~ 100 사이의 수 | O
 | content | String | 친구들에게 공유할 메시지 | O
 | emotion | String | 감정 +
 종류: DEPRESSION | O
