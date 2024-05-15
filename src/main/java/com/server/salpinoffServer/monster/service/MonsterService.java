@@ -25,7 +25,15 @@ public class MonsterService {
 
     @Transactional
     public MonsterInteractionResponse interactMonster(Long monsterId, Long memberId, MonsterInteractionRequest request) {
-        return null;
+        Monster monster = monsterRepository.getMonster(monsterId);
+
+        if (!monster.isOwner(memberId)) {
+            throw new AccessDeniedException("몬스터에게 인터렉션 할 수 있는 권한이 없습니다.");
+        }
+
+        monster.encourage(request.getInteractionCount());
+
+        return new MonsterInteractionResponse(monster.getId(), monster.getCurrentInteractionCount());
     }
 
     @Transactional(readOnly = true)

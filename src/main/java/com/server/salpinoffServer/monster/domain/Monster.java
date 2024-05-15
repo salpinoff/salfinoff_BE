@@ -89,8 +89,11 @@ public class Monster {
     }
 
     public void encourage() {
-        int totalInteractionCount = this.currentInteractionCount + RatingRange.getRatingRangeByRating(this.rating)
-                .getInteractionCountPerEncouragement();
+        this.encourage(RatingRange.getRatingRangeByRating(this.rating).getInteractionCountPerEncouragement());
+    }
+
+    public void encourage(int count) {
+        int totalInteractionCount = this.currentInteractionCount + count;
 
         this.currentInteractionCount = this.interactionCount <= totalInteractionCount ?
                 this.interactionCount : totalInteractionCount;
