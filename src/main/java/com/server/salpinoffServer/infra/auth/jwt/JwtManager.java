@@ -15,14 +15,19 @@ import java.util.Map;
 @Component
 public class JwtManager {
 
-    @Value("${props.jwt.accessTokenExpirationPeriod}")
-    private long accessTokenExpirationPeriod;
+    private final long accessTokenExpirationPeriod;
 
-    @Value("${props.jwt.refreshTokenExpirationPeriod}")
-    private long refreshTokenExpirationPeriod;
+    private final long refreshTokenExpirationPeriod;
 
-    @Value("${props.jwt.secretKey}")
-    private String jwtSecretKey;
+    private final String jwtSecretKey;
+
+    public JwtManager(@Value("${props.jwt.accessTokenExpirationPeriod}") long accessTokenExpirationPeriod,
+                      @Value("${props.jwt.refreshTokenExpirationPeriod}") long refreshTokenExpirationPeriod,
+                      @Value("${props.jwt.secretKey}") String jwtSecretKey) {
+        this.accessTokenExpirationPeriod = accessTokenExpirationPeriod;
+        this.refreshTokenExpirationPeriod = refreshTokenExpirationPeriod;
+        this.jwtSecretKey = jwtSecretKey;
+    }
 
     public String createRefreshToken(Member member) {
         return createToken(member.getId(), member.getAuthority(), refreshTokenExpirationPeriod);
