@@ -1,6 +1,5 @@
 package com.server.salpinoffServer.member.domain;
 
-import com.server.salpinoffServer.infra.auth.jwt.JwtManager;
 import com.server.salpinoffServer.infra.entity.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,9 +25,5 @@ public class Token extends BaseEntity {
 
     public void changeRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
-    }
-
-    public boolean isExpired(JwtManager jwtManager) {
-        return jwtManager.isExpired(refreshToken);
     }
 }

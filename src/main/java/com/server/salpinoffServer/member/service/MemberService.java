@@ -45,7 +45,7 @@ public class MemberService {
     public TokenResponse refreshToken(RefreshTokenRequest request) {
         Token token = memberRepository.getTokenByRefreshToken(request.getRefreshToken());
 
-        if (token.isExpired(jwtManager)) {
+        if (jwtManager.isExpired(token.getRefreshToken())) {
             throw new AccessDeniedException("토큰이 만료되었습니다. 재 로그인이 필요합니다.");
         }
 
