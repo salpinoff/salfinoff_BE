@@ -1,25 +1,18 @@
 package com.server.salpinoffServer.member.acceptance;
 
-import com.server.salpinoffServer.member.service.OAuthManager;
 import com.server.salpinoffServer.monster.acceptance.MonsterSteps;
 import com.server.salpinoffServer.utils.acceptance.BaseAcceptanceTest;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Map;
 
 import static com.server.salpinoffServer.member.acceptance.MemberSteps.로그인_카카오;
 import static com.server.salpinoffServer.member.acceptance.MemberSteps.회원정보_등록;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
 
 public class MemberAcceptanceTest extends BaseAcceptanceTest {
-
-    @MockBean
-    private OAuthManager oAuthManager;
 
     /**
      * When: 유저가 첫 로그인을 한다.
@@ -32,10 +25,7 @@ public class MemberAcceptanceTest extends BaseAcceptanceTest {
      * Then: 유저의 로그인 코드가 102 이다.
      */
     @Test
-    void login() {
-        //given
-        Mockito.when(oAuthManager.findSocialKeyByKakao(any())).thenReturn("123");
-
+    void loginTest() {
         //when
         ExtractableResponse<Response> 로그인_응답값_100 = 로그인_카카오("1");
 
