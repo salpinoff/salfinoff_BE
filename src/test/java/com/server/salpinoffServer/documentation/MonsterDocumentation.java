@@ -41,7 +41,7 @@ public class MonsterDocumentation extends Documentation {
         setAccessToken();
 
         //when
-        Map<String, Object> variables = 몬스터_생성_요청값("빡침몬");
+        Map<String, Object> variables = 몬스터_생성_요청값("빡침몬", 100);
 
         //then
         몬스터_생성(getRequestSpecification("monster-creation").auth().oauth2("accessToken"),

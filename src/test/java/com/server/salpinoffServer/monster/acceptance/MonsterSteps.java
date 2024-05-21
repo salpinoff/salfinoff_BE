@@ -16,8 +16,8 @@ public class MonsterSteps {
 
     public static final String PATH_PREFIX = "api/v1/monsters";
 
-    public static ExtractableResponse<Response> 몬스터_상세_조회(Long monsterId) {
-        return 몬스터_상세_조회(RestAssured.given().log().all(), monsterId);
+    public static ExtractableResponse<Response> 몬스터_상세_조회(String accessToken, Long monsterId) {
+        return 몬스터_상세_조회(RestAssured.given().log().all().auth().oauth2(accessToken), monsterId);
     }
 
     public static ExtractableResponse<Response> 몬스터_상세_조회(RequestSpecification requestSpecification, Long monsterId) {
@@ -57,11 +57,11 @@ public class MonsterSteps {
                 .log().all().extract();
     }
 
-    public static Map<String, Object> 몬스터_생성_요청값(String monsterName) {
+    public static Map<String, Object> 몬스터_생성_요청값(String monsterName, int rating) {
         Map<String, Object> req = new HashMap<>();
 
         req.put("monsterName", monsterName);
-        req.put("rating", "100");
+        req.put("rating", rating);
         req.put("emotion", "DEPRESSION");
         req.put("content", "거 참 퇴사하기 딱 좋은 날씨네");
         req.put("monsterDecorations",

@@ -44,7 +44,7 @@ public class MemberAcceptanceTest extends BaseAcceptanceTest {
         assertThat(로그인_응답값_200.jsonPath().getString("code")).isEqualTo("101");
 
         //given
-        MonsterSteps.몬스터_생성(accessToken, MonsterSteps.몬스터_생성_요청값("빡침이"));
+        MonsterSteps.몬스터_생성(accessToken, MonsterSteps.몬스터_생성_요청값("빡침이", 100));
 
         //when
         ExtractableResponse<Response> 로그인_응답값_300 = 로그인_카카오("1");
