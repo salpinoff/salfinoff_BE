@@ -27,11 +27,7 @@ public class MonsterService {
     public MonsterInteractionResponse interactMonster(Long monsterId, Long memberId, MonsterInteractionRequest request) {
         Monster monster = monsterRepository.getMonster(monsterId);
 
-        if (!monster.isOwner(memberId)) {
-            throw new AccessDeniedException("몬스터에게 인터렉션 할 수 있는 권한이 없습니다.");
-        }
-
-        monster.encourage(request.getInteractionCount());
+        monster.encourage(memberId, request.getInteractionCount());
 
         return new MonsterInteractionResponse(monster.getId(), monster.getCurrentInteractionCount());
     }
@@ -106,7 +102,7 @@ public class MonsterService {
         }
 
         monsterMessage.check();
-        monster.encourage();
+        monster.encourage(memberId);
     }
 
     @Transactional

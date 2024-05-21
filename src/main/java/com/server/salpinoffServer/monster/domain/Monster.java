@@ -9,6 +9,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.security.access.AccessDeniedException;
 
 import java.util.Arrays;
 import java.util.List;
@@ -85,11 +86,15 @@ public class Monster extends BaseEntity {
         this.content = request.getContent();
     }
 
-    public void encourage() {
-        this.encourage(RatingRange.getRatingRangeByRating(this.rating).getInteractionCountPerEncouragement());
+    public void encourage(Long memberId) {
+        this.encourage(memberId, RatingRange.getRatingRangeByRating(this.rating).getInteractionCountPerEncouragement());
     }
 
-    public void encourage(int count) {
+    public void encourage(Long memberId, int count) {
+        if (!isOwner(memberId)) {
+            throw new AccessDeniedException("몬스터에게 인터렉션 할 수 있는 권한이 없습니다.");
+        }
+
         int totalInteractionCount = this.currentInteractionCount + count;
 
         this.currentInteractionCount = this.interactionCount <= totalInteractionCount ?

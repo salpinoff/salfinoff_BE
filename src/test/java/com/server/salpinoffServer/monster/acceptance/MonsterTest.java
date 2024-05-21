@@ -3,8 +3,10 @@ package com.server.salpinoffServer.monster.acceptance;
 import com.server.salpinoffServer.monster.domain.Monster;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.security.access.AccessDeniedException;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class MonsterTest {
 
@@ -26,7 +28,7 @@ public class MonsterTest {
     @Test
     void 몬스터_생성_인터렉션_값과_현재_인터렉션_값이_크거나_같으면_자유상태() {
         //when
-        monster.encourage(Monster.RatingRange.RANGE_1.getTotalInteractionCount());
+        monster.encourage(1L, Monster.RatingRange.RANGE_1.getTotalInteractionCount());
 
         //then
         assertThat(monster.isFreedom()).isTrue();
@@ -35,7 +37,7 @@ public class MonsterTest {
     @Test
     void 몬스터_생성_인터렉션_값과_현재_인터렉션_값이_작으면_비자유상태() {
         //when
-        monster.encourage(Monster.RatingRange.RANGE_1.getTotalInteractionCount() - 1);
+        monster.encourage(1L, Monster.RatingRange.RANGE_1.getTotalInteractionCount() - 1);
 
         //then
         assertThat(monster.isFreedom()).isFalse();
@@ -48,7 +50,7 @@ public class MonsterTest {
                 Monster.RatingRange.RANGE_1.getInteractionCountPerEncouragement();
 
         for (int i = 0; i < 몬스터가_자유상태가_되기_위해_받아야_하는_응원_횟수; i++) {
-            monster.encourage();
+            monster.encourage(1L);
         }
 
         //then
@@ -62,10 +64,24 @@ public class MonsterTest {
                 Monster.RatingRange.RANGE_1.getInteractionCountPerEncouragement();
 
         for (int i = 0; i < 몬스터가_자유상태가_되기_위해_받아야_하는_응원_횟수 - 1; i++) {
-            monster.encourage();
+            monster.encourage(1L);
         }
 
         //then
         assertThat(monster.isFreedom()).isFalse();
+    }
+
+    @Test
+    void 몬스터_주인이_아닌_다른_회원이_인터렉션을_하면_예외처리() {
+        //then
+        assertThatThrownBy(() -> monster.encourage(2L, 59))
+                .isInstanceOf(AccessDeniedException.class);
+    }
+
+    @Test
+    void 몬스터_주인이_아닌_다른_회원이_웅원하면_예외처리() {
+        //then
+        assertThatThrownBy(() -> monster.encourage(2L))
+                .isInstanceOf(AccessDeniedException.class);
     }
 }
