@@ -1,4 +1,4 @@
-package com.server.salpinoffServer.monster.acceptance;
+package com.server.salpinoffServer.monster.unit;
 
 import com.server.salpinoffServer.monster.domain.Monster;
 import com.server.salpinoffServer.monster.service.dto.MonsterModificationRequest;

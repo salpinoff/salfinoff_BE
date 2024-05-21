@@ -93,11 +93,7 @@ public class MonsterService {
         MonsterMessage monsterMessage = monsterRepository.getMonsterMessage(messageId);
         Monster monster = monsterRepository.getMonster(monsterId);
 
-        if (!monsterMessage.isOwner(monsterId) || !monster.isOwner(memberId)) {
-            throw new AccessDeniedException("응원 메시지를 확인할 권한이 없습니다.");
-        }
-
-        monsterMessage.check();
+        monsterMessage.check(monsterId);
         monster.encourage(memberId);
     }
 

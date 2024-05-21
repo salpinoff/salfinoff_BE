@@ -8,6 +8,7 @@ import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.security.access.AccessDeniedException;
 
 import java.util.Objects;
 
@@ -29,7 +30,7 @@ public class MonsterMessage extends BaseEntity {
     @Column(nullable = false)
     private boolean checked;
 
-    private MonsterMessage(Long monsterId, String sender, String content) {
+    public MonsterMessage(Long monsterId, String sender, String content) {
         this.monsterId = monsterId;
         this.sender = sender;
         this.content = content;
@@ -44,7 +45,11 @@ public class MonsterMessage extends BaseEntity {
         return Objects.equals(monsterId, this.monsterId);
     }
 
-    public void check() {
+    public void check(Long monsterId) {
+        if (!isOwner(monsterId)) {
+            throw new AccessDeniedException("응원 메시지를 확인할 권한이 없습니다.");
+        }
+
         this.checked = true;
     }
 }
