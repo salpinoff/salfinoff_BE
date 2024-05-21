@@ -85,11 +85,7 @@ public class MonsterService {
     public void updateMonster(Long memberId, Long monsterId, MonsterModificationRequest request) {
         Monster monster = monsterRepository.getMonster(monsterId);
 
-        if (!monster.isOwner(memberId)) {
-            throw new AccessDeniedException("몬스터 수정 권한이 없습니다.");
-        }
-
-        monster.update(request);
+        monster.update(memberId, request);
     }
 
     @Transactional

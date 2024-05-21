@@ -82,7 +82,11 @@ public class Monster extends BaseEntity {
         return interactionCount <= currentInteractionCount;
     }
 
-    public void update(MonsterModificationRequest request) {
+    public void update(Long memberId, MonsterModificationRequest request) {
+        if (!isOwner(memberId)) {
+            throw new AccessDeniedException("몬스터 수정 권한이 없습니다.");
+        }
+
         this.content = request.getContent();
     }
 

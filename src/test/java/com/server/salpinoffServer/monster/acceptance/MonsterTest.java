@@ -1,6 +1,7 @@
 package com.server.salpinoffServer.monster.acceptance;
 
 import com.server.salpinoffServer.monster.domain.Monster;
+import com.server.salpinoffServer.monster.service.dto.MonsterModificationRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.access.AccessDeniedException;
@@ -82,6 +83,13 @@ public class MonsterTest {
     void 몬스터_주인이_아닌_다른_회원이_웅원하면_예외처리() {
         //then
         assertThatThrownBy(() -> monster.encourage(2L))
+                .isInstanceOf(AccessDeniedException.class);
+    }
+
+    @Test
+    void 몬스터_수정을_주인이_아닌_다른_회원이_하면_예외처리() {
+        //then
+        assertThatThrownBy(() -> monster.update(2L, new MonsterModificationRequest()))
                 .isInstanceOf(AccessDeniedException.class);
     }
 }
