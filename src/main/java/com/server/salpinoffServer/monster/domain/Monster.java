@@ -45,7 +45,7 @@ public class Monster extends BaseEntity {
     private MonsterDecorations monsterDecorations = new MonsterDecorations();
 
     @Builder
-    private Monster(Long memberId, String monsterName, int rating, Emotion emotion, String content) {
+    public Monster(Long memberId, String monsterName, int rating, Emotion emotion, String content) {
         this.memberId = memberId;
         this.monsterName = monsterName;
         this.rating = rating;
