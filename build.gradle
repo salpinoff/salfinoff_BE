@@ -50,6 +50,9 @@ dependencies {
 	annotationProcessor "jakarta.annotation:jakarta.annotation-api"
 	annotationProcessor "jakarta.persistence:jakarta.persistence-api"
 
+	// slack logging
+	implementation 'com.github.maricn:logback-slack-appender:1.6.1'
+
 	// Naming Rules
 	implementation "com.google.guava:guava:33.2.0-jre"
 
