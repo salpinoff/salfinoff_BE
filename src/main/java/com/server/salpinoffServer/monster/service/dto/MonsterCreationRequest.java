@@ -1,9 +1,11 @@
 package com.server.salpinoffServer.monster.service.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import com.server.salpinoffServer.monster.domain.Monster;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
+
+import java.util.List;
 
 @Getter
 public class MonsterCreationRequest {
@@ -11,16 +13,18 @@ public class MonsterCreationRequest {
     @NotBlank
     private String monsterName;
 
-    @NotNull
-    private int interactionCount;
+    @Min(1)
+    @Max(100)
+    private int rating;
 
     @NotNull
-    private String emotion; // enum 으로 변경하기
+    private Monster.Emotion emotion;
 
     @NotEmpty
     private String content;
 
     @NotNull
-    private MonsterDecorationRequest monsterDecoration;
+    @Valid
+    private List<MonsterDecorationRequest> monsterDecorations;
 
 }

@@ -23,8 +23,9 @@ public class MonsterController {
      * 모든 유저들에게 열어야함
      */
     @GetMapping("/{monsterId}")
-    public ResponseEntity<MonsterDetailsResponse> getMonster(@PathVariable(value = "monsterId") Long monsterId) {
-        MonsterDetailsResponse response = monsterService.getMonster(monsterId);
+    public ResponseEntity<MonsterDetailsResponse> getMonster(@AuthenticationPrincipal MemberInfo memberInfo,
+                                                             @PathVariable(value = "monsterId") Long monsterId) {
+        MonsterDetailsResponse response = monsterService.getMonster(memberInfo, monsterId);
 
         return ResponseEntity.ok().body(response);
     }
@@ -50,6 +51,8 @@ public class MonsterController {
     @PostMapping
     public ResponseEntity<Void> createMonster(@AuthenticationPrincipal MemberInfo memberInfo,
                                               @Valid @RequestBody MonsterCreationRequest request) {
+        monsterService.createMonster(memberInfo.memberId(), request);
+
         return ResponseEntity.ok().build();
     }
 
@@ -57,6 +60,8 @@ public class MonsterController {
     public ResponseEntity<Void> updateMonster(@AuthenticationPrincipal MemberInfo memberInfo,
                                               @PathVariable(value = "monsterId") Long monsterId,
                                               @Valid @RequestBody MonsterModificationRequest request) {
+        monsterService.updateMonster(memberInfo.memberId(), monsterId, request);
+
         return ResponseEntity.ok().build();
     }
 
@@ -85,18 +90,16 @@ public class MonsterController {
     public ResponseEntity<Void> checkMonsterMessage(@PathVariable(value = "monsterId") Long monsterId,
                                                     @PathVariable(value = "messageId") Long messageId,
                                                     @AuthenticationPrincipal MemberInfo memberInfo) {
-        return ResponseEntity.ok().build();
-    }
+        monsterService.checkMonsterMessage(monsterId, messageId, memberInfo.memberId());
 
-    @GetMapping
-    public ResponseEntity<Void> getMonstersByUser(@AuthenticationPrincipal MemberInfo memberInfo,
-                                                  @Valid PageRequest pageRequest) {
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/{monsterId}/encouragement")
-    public ResponseEntity<Void> encourageUser(@PathVariable(value = "monsterId") Long monsterId,
-                                              @Valid @RequestBody EncouragementMessageRequest request) {
+    public ResponseEntity<Void> createMonsterMessage(@PathVariable(value = "monsterId") Long monsterId,
+                                                     @Valid @RequestBody EncouragementMessageRequest request) {
+        monsterService.createMonsterMessage(monsterId, request);
+
         return ResponseEntity.ok().build();
     }
 }

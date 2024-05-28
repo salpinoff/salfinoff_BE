@@ -95,13 +95,24 @@ operation::monster-creation[snippets='http-request']
 RequestBody
 |===
 | key | type | description | required
-| interactionCount | int | 인터렉션 수 | O
+| rating | int | 수치 (스트레스) +
+1 ~ 100 사이의 수 | O
 | content | String | 친구들에게 공유할 메시지 | O
 | emotion | String | 감정 +
 종류: DEPRESSION | O
 | monsterName | String | 몬스터 이름 | O
-| monsterDecoration.backgroundColor | String | 배경색 +
-종류: ... (정해야함) | O
+| monsterDecorations | List<MonsterDecoration> | 몬스터 꾸밈 재료 목록 +
+없으면 빈 배열 | O
+|===
+
+MonsterDecoration
+|===
+| key | type | description | required
+| decorationValue | String | 꾸밈 재료 값 +
+별도의 검증 없이 값이 저장됩니다. 프론트에서 상수를 만들어서 저장해주세요.| O
+| decorationType | String | 꾸밈 재료 타입 +
+정해진 타입만 가능합니다. +
+BACKGROUND_COLOR: 배경색 | O
 |===
 
 operation::monster-creation[snippets='http-response']
@@ -127,8 +138,18 @@ operation::monster-details-read[snippets='http-response']
 | emotion | String | 감정 +
 종류: DEPRESSION | O
 | monsterName | String | 몬스터 이름 | O
-| monsterDecoration.backgroundColor | String | 배경색 +
-종류: ... (정해야함) | O
+| monsterDecorations | List<MonsterDecoration> | 몬스터 꾸밈 재료 목록 | O
+|===
+
+MonsterDecoration
+|===
+| key | type | description | required
+| decorationId | Long | 꾸밈 id (pk) | O
+| decorationValue | String | 꾸밈 재료 값 +
+별도의 검증 없이 값이 저장됩니다. 프론트에서 상수를 만들어서 저장해주세요.| O
+| decorationType | String | 꾸밈 재료 타입 +
+정해진 타입만 가능합니다. +
+BACKGROUND_COLOR: 배경색 | O
 |===
 
 === 나의 몬스터 목록 조회
@@ -163,8 +184,18 @@ MonsterDto
 | emotion | String | 감정 +
 종류: DEPRESSION | O
 | monsterName | String | 몬스터 이름 | O
-| monsterDecoration.backgroundColor | String | 배경색 +
-종류: ... (정해야함) | O
+| monsterDecorations | List<MonsterDecoration> | 몬스터 꾸밈 재료 목록 | O
+|===
+
+MonsterDecoration
+|===
+| key | type | description | required
+| decorationId | Long | 꾸밈 id (pk) | O
+| decorationValue | String | 꾸밈 재료 값 +
+별도의 검증 없이 값이 저장됩니다. 프론트에서 상수를 만들어서 저장해주세요.| O
+| decorationType | String | 꾸밈 재료 타입 +
+정해진 타입만 가능합니다. +
+BACKGROUND_COLOR: 배경색 | O
 |===
 
 === 나의 대표 몬스터 조회
@@ -181,8 +212,18 @@ operation::monster-my-rep-read[snippets='http-response']
 | emotion | String | 감정 +
 종류: DEPRESSION | O
 | monsterName | String | 몬스터 이름 | O
-| monsterDecoration.backgroundColor | String | 배경색 +
-종류: ... (정해야함) | O
+| monsterDecorations | List<MonsterDecoration> | 몬스터 꾸밈 재료 목록 | O
+|===
+
+MonsterDecoration
+|===
+| key | type | description | required
+| decorationId | Long | 꾸밈 id (pk) | O
+| decorationValue | String | 꾸밈 재료 값 +
+별도의 검증 없이 값이 저장됩니다. 프론트에서 상수를 만들어서 저장해주세요.| O
+| decorationType | String | 꾸밈 재료 타입 +
+정해진 타입만 가능합니다. +
+BACKGROUND_COLOR: 배경색 | O
 |===
 
 === 몬스터 수정
@@ -288,3 +329,10 @@ RequestBody
 |===
 
 operation::encouragement-message-send[snippets='http-response']
+
+== 문서 업데이트 내역
+-  1.0.1 (2024-05-06)
+* 문서 릴리즈
+- 1.0.2 (2024-05-15)
+* 몬스터 꾸미기 데이터 request, response parameter 를 배열로 수정
+* 몬스터 생성 시 수치를 나타내는 변수 이름을 interactionCount -> rating 으로 변경

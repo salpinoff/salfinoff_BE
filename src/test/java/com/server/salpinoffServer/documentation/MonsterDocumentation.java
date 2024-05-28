@@ -1,5 +1,7 @@
 package com.server.salpinoffServer.documentation;
 
+import com.server.salpinoffServer.monster.domain.Monster;
+import com.server.salpinoffServer.monster.domain.MonsterDecoration;
 import com.server.salpinoffServer.monster.service.MonsterService;
 import com.server.salpinoffServer.monster.service.dto.MonsterDecorationResponse;
 import com.server.salpinoffServer.monster.service.dto.MonsterDetailsResponse;
@@ -14,8 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.server.salpinoffServer.monster.acceptance.MonsterSteps.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
 public class MonsterDocumentation extends Documentation {
@@ -50,14 +51,16 @@ public class MonsterDocumentation extends Documentation {
     @Test
     void getMonster() {
         //given
-        MonsterDecorationResponse monsterDecorationResponse = new MonsterDecorationResponse("BLUE");
+        MonsterDecorationResponse monsterDecorationResponse = new MonsterDecorationResponse(1L,
+                MonsterDecoration.Type.BACKGROUND_COLOR, "BLUE");
+
         MonsterDetailsResponse monsterDetailsResponse =
                 new MonsterDetailsResponse(1L, "빡침몬", 100,
-                        60, "DEPRESSION", "거 참 퇴사하기 딱 좋은 날씨네",
-                        monsterDecorationResponse);
+                        60, Monster.Emotion.DEPRESSION, "거 참 퇴사하기 딱 좋은 날씨네",
+                        List.of(monsterDecorationResponse));
 
         //when
-        when(monsterService.getMonster(1L)).thenReturn(monsterDetailsResponse);
+        when(monsterService.getMonster(any(), anyLong())).thenReturn(monsterDetailsResponse);
 
         //then
         몬스터_상세_조회(getRequestSpecification("monster-details-read"), 1L);
@@ -68,14 +71,16 @@ public class MonsterDocumentation extends Documentation {
         //given
         setAccessToken();
 
-        MonsterDecorationResponse monsterDecorationResponse = new MonsterDecorationResponse("BLUE");
+        MonsterDecorationResponse monsterDecorationResponse = new MonsterDecorationResponse(1L,
+                MonsterDecoration.Type.BACKGROUND_COLOR, "BLUE");
+
         List<MonsterDetailsResponse> monsterDetailsResponses = List.of(
                 new MonsterDetailsResponse(1L, "빡침몬", 100,
-                        60, "DEPRESSION", "거 참 퇴사하기 딱 좋은 날씨네",
-                        monsterDecorationResponse),
+                        60, Monster.Emotion.DEPRESSION, "거 참 퇴사하기 딱 좋은 날씨네",
+                        List.of(monsterDecorationResponse)),
                 new MonsterDetailsResponse(2L, "화남몬", 150,
-                        10, "DEPRESSION", "화난건 뻥이고 다들 홧팅해라~!",
-                        monsterDecorationResponse)
+                        10, Monster.Emotion.DEPRESSION, "화난건 뻥이고 다들 홧팅해라~!",
+                        List.of(monsterDecorationResponse))
         );
 
         PageImpl<MonsterDetailsResponse> response =
@@ -93,11 +98,13 @@ public class MonsterDocumentation extends Documentation {
         //given
         setAccessToken();
 
-        MonsterDecorationResponse monsterDecorationResponse = new MonsterDecorationResponse("BLUE");
+        MonsterDecorationResponse monsterDecorationResponse = new MonsterDecorationResponse(1L,
+                MonsterDecoration.Type.BACKGROUND_COLOR, "BLUE");
+
         MonsterDetailsResponse monsterDetailsResponse =
                 new MonsterDetailsResponse(1L, "빡침몬", 100,
-                        60, "DEPRESSION", "거 참 퇴사하기 딱 좋은 날씨네",
-                        monsterDecorationResponse);
+                        60, Monster.Emotion.DEPRESSION, "거 참 퇴사하기 딱 좋은 날씨네",
+                        List.of(monsterDecorationResponse));
 
         //when
         when(monsterService.getRepMonsterByMember(anyLong())).thenReturn(monsterDetailsResponse);
