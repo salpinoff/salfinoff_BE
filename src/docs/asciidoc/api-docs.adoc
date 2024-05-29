@@ -51,6 +51,11 @@ Response body
 | memberId | Long | 회원 고유 id (pk) | O
 | accessToken | String | access token | O
 | refreshToken | String | refresh token | O
+| username | String | 닉네임 | O
+| code | int | 회원가입 프로세스 상태 코드 +
+100: 닉네임 X, 최초 몬스터 생성 X +
+101: 닉네임 O, 최초 몬스터 생성 X +
+102: 닉네임 O, 최초 몬스터 생성 O | O
 |===
 
 === 로그아웃
