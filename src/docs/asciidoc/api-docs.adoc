@@ -341,3 +341,5 @@ operation::encouragement-message-send[snippets='http-response']
 - 1.0.2 (2024-05-15)
 * 몬스터 꾸미기 데이터 request, response parameter 를 배열로 수정
 * 몬스터 생성 시 수치를 나타내는 변수 이름을 interactionCount -> rating 으로 변경
+- 1.0.3 (2024-05-29)
+* 토큰 재발급 api 반환 값 추가
