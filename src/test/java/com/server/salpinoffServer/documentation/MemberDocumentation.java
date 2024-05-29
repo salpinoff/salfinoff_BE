@@ -38,7 +38,8 @@ public class MemberDocumentation extends Documentation {
     @Test
     void refreshToken() {
         //given
-        TokenResponse tokenResponse = new TokenResponse(1L, "accessToken", "refreshToken");
+        LoginResponse tokenResponse = new LoginResponse(1L, "accessToken", "refreshToken",
+                "빵빵이", 101);
 
         //when
         when(memberService.refreshToken(any())).thenReturn(tokenResponse);

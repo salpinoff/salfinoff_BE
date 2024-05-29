@@ -6,7 +6,6 @@ import com.server.salpinoffServer.member.domain.Token;
 import com.server.salpinoffServer.member.service.dto.LoginResponse;
 import com.server.salpinoffServer.member.service.dto.MemberInfoRequest;
 import com.server.salpinoffServer.member.service.dto.RefreshTokenRequest;
-import com.server.salpinoffServer.member.service.dto.TokenResponse;
 import com.server.salpinoffServer.monster.service.MonsterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
@@ -42,7 +41,7 @@ public class MemberService {
     }
 
     @Transactional
-    public TokenResponse refreshToken(RefreshTokenRequest request) {
+    public LoginResponse refreshToken(RefreshTokenRequest request) {
         Token token = memberRepository.getTokenByRefreshToken(request.getRefreshToken());
 
         if (jwtManager.isExpired(token.getRefreshToken())) {
@@ -55,7 +54,10 @@ public class MemberService {
         String refreshToken = jwtManager.createRefreshToken(member);
         token.changeRefreshToken(refreshToken);
 
-        return new TokenResponse(member.getId(), accessToken, refreshToken);
+        boolean hasMonster = monsterService.hasMonsterForMember(member.getId());
+
+        return new LoginResponse(member.getId(), accessToken, refreshToken, member.getUsername(),
+                member.signUpStatus(hasMonster).value());
     }
 
     @Transactional

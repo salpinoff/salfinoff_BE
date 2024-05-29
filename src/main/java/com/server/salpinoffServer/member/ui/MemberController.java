@@ -27,8 +27,8 @@ public class MemberController {
     }
 
     @PostMapping("/token/refresh")
-    public ResponseEntity<TokenResponse> refreshToken(@Valid @RequestBody RefreshTokenRequest request) {
-        TokenResponse response = memberService.refreshToken(request);
+    public ResponseEntity<LoginResponse> refreshToken(@Valid @RequestBody RefreshTokenRequest request) {
+        LoginResponse response = memberService.refreshToken(request);
 
         return ResponseEntity.ok(response);
     }
