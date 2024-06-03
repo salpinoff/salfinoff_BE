@@ -43,6 +43,16 @@ public class MonsterDocumentation extends Documentation {
         //when
         Map<String, Object> variables = 몬스터_생성_요청값("빡침몬", 100);
 
+        MonsterDecorationResponse monsterDecorationResponse = new MonsterDecorationResponse(1L,
+                MonsterDecoration.Type.BACKGROUND_COLOR, "BLUE");
+
+        MonsterDetailsResponse monsterDetailsResponse =
+                new MonsterDetailsResponse(1L, "빡침몬", 100,
+                        60, Monster.Emotion.DEPRESSION, "거 참 퇴사하기 딱 좋은 날씨네",
+                        List.of(monsterDecorationResponse));
+
+        when(monsterService.createMonster(any(), any())).thenReturn(monsterDetailsResponse);
+
         //then
         몬스터_생성(getRequestSpecification("monster-creation").auth().oauth2("accessToken"),
                 variables);
