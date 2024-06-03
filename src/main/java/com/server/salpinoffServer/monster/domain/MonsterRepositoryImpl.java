@@ -105,7 +105,7 @@ public class MonsterRepositoryImpl implements MonsterRepository {
                 .select(monster)
                 .from(monster)
                 .where(monster.memberId.eq(memberId))
-                .fetchOne();
+                .fetchFirst();
 
         return m != null;
     }
