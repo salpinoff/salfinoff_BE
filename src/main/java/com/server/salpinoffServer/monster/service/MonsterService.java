@@ -71,7 +71,7 @@ public class MonsterService {
     }
 
     @Transactional
-    public void createMonster(Long memberId, MonsterCreationRequest request) {
+    public MonsterDetailsResponse createMonster(Long memberId, MonsterCreationRequest request) {
         Monster monster = monsterRepository.saveMonster(Monster.from(memberId, request));
 
         List<MonsterDecoration> monsterDecorations = request.getMonsterDecorations().stream()
@@ -79,6 +79,8 @@ public class MonsterService {
                 .toList();
 
         monster.addDecorations(monsterDecorations);
+
+        return MonsterDetailsResponse.of(monster);
     }
 
     @Transactional
