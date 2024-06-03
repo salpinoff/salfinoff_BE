@@ -20,6 +20,10 @@ public class MonsterSteps {
         return 몬스터_상세_조회(RestAssured.given().log().all().auth().oauth2(accessToken), monsterId);
     }
 
+    public static ExtractableResponse<Response> 몬스터_상세_조회(Long monsterId) {
+        return 몬스터_상세_조회(RestAssured.given().log().all(), monsterId);
+    }
+
     public static ExtractableResponse<Response> 몬스터_상세_조회(RequestSpecification requestSpecification, Long monsterId) {
 
         return requestSpecification

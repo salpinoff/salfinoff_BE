@@ -53,7 +53,9 @@ public class MonsterAcceptanceTest extends BaseAcceptanceTest {
 
         long monsterId = 나의_몬스터_목록_조회_응답값.jsonPath().getLong("content[0].monsterId");
 
-        응원의_메시지_보내기(monsterId, "옥지", "빵빵아 힘내!");
+        long findedMonsterId = 몬스터_상세_조회(monsterId).jsonPath().getLong("monsterId");
+
+        응원의_메시지_보내기(findedMonsterId, "옥지", "빵빵아 힘내!");
 
         ExtractableResponse<Response> 응원_메시지_조회_응답값 = 응원_메시지_조회(accessToken, monsterId);
 
