@@ -121,6 +121,29 @@ BACKGROUND_COLOR: 배경색 | O
 |===
 
 operation::monster-creation[snippets='http-response']
+|===
+| key | type | description | required
+| monsterId | Long | 몬스터 고유 id (pk) | O
+| interactionCount | int | 인터렉션 수 | O
+| currentInteractionCount | int | 현재 인터렉션 수 | O
+| content | String | 친구들에게 공유할 메시지 | O
+| emotion | String | 감정 +
+종류: DEPRESSION | O
+| monsterName | String | 몬스터 이름 | O
+| monsterDecorations | List<MonsterDecoration> | 몬스터 꾸밈 재료 목록 | O
+|===
+
+MonsterDecoration
+|===
+| key | type | description | required
+| decorationId | Long | 꾸밈 id (pk) | O
+| decorationValue | String | 꾸밈 재료 값 +
+별도의 검증 없이 값이 저장됩니다. 프론트에서 상수를 만들어서 저장해주세요.| O
+| decorationType | String | 꾸밈 재료 타입 +
+정해진 타입만 가능합니다. +
+BACKGROUND_COLOR: 배경색 | O
+|===
+
 
 === 몬스터 상세 조회
 
