@@ -106,7 +106,8 @@ public class Monster extends BaseEntity {
     }
 
     public enum Emotion {
-        DEPRESSION
+        DEPRESSION,
+        ANGER
     }
 
     @Getter
