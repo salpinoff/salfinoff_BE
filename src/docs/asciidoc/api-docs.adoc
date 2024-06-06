@@ -124,12 +124,15 @@ operation::monster-creation[snippets='http-response']
 |===
 | key | type | description | required
 | monsterId | Long | 몬스터 고유 id (pk) | O
+| monsterName | String | 몬스터 이름 | O
+| ownerName | String | 몬스터 주인 이름 | O
 | interactionCount | int | 인터렉션 수 | O
 | currentInteractionCount | int | 현재 인터렉션 수 | O
+| interactionCountPerEncouragement | int | 한 번의 응원 당 부여되는 인터렉션 수 +
+(서브 유저가 응원을 보내기 위해 인터렉션 해야 하는 횟수) | O
 | content | String | 친구들에게 공유할 메시지 | O
 | emotion | String | 감정 +
-종류: DEPRESSION | O
-| monsterName | String | 몬스터 이름 | O
+종류: DEPRESSION, ANGER | O
 | monsterDecorations | List<MonsterDecoration> | 몬스터 꾸밈 재료 목록 | O
 |===
 
@@ -160,12 +163,15 @@ operation::monster-details-read[snippets='http-response']
 |===
 | key | type | description | required
 | monsterId | Long | 몬스터 고유 id (pk) | O
+| monsterName | String | 몬스터 이름 | O
+| ownerName | String | 몬스터 주인 이름 | O
 | interactionCount | int | 인터렉션 수 | O
 | currentInteractionCount | int | 현재 인터렉션 수 | O
+| interactionCountPerEncouragement | int | 한 번의 응원 당 부여되는 인터렉션 수 +
+(서브 유저가 응원을 보내기 위해 인터렉션 해야 하는 횟수) | O
 | content | String | 친구들에게 공유할 메시지 | O
 | emotion | String | 감정 +
-종류: DEPRESSION | O
-| monsterName | String | 몬스터 이름 | O
+종류: DEPRESSION, ANGER | O
 | monsterDecorations | List<MonsterDecoration> | 몬스터 꾸밈 재료 목록 | O
 |===
 
@@ -206,12 +212,15 @@ MonsterDto
 |===
 | key | type | description | required
 | monsterId | Long | 몬스터 고유 id (pk) | O
+| monsterName | String | 몬스터 이름 | O
+| ownerName | String | 몬스터 주인 이름 | O
 | interactionCount | int | 인터렉션 수 | O
 | currentInteractionCount | int | 현재 인터렉션 수 | O
+| interactionCountPerEncouragement | int | 한 번의 응원 당 부여되는 인터렉션 수 +
+(서브 유저가 응원을 보내기 위해 인터렉션 해야 하는 횟수) | O
 | content | String | 친구들에게 공유할 메시지 | O
 | emotion | String | 감정 +
-종류: DEPRESSION | O
-| monsterName | String | 몬스터 이름 | O
+종류: DEPRESSION, ANGER | O
 | monsterDecorations | List<MonsterDecoration> | 몬스터 꾸밈 재료 목록 | O
 |===
 
@@ -234,12 +243,15 @@ operation::monster-my-rep-read[snippets='http-response']
 |===
 | key | type | description | required
 | monsterId | Long | 몬스터 고유 id (pk) | O
+| monsterName | String | 몬스터 이름 | O
+| ownerName | String | 몬스터 주인 이름 | O
 | interactionCount | int | 인터렉션 수 | O
 | currentInteractionCount | int | 현재 인터렉션 수 | O
+| interactionCountPerEncouragement | int | 한 번의 응원 당 부여되는 인터렉션 수 +
+(서브 유저가 응원을 보내기 위해 인터렉션 해야 하는 횟수) | O
 | content | String | 친구들에게 공유할 메시지 | O
 | emotion | String | 감정 +
-종류: DEPRESSION | O
-| monsterName | String | 몬스터 이름 | O
+종류: DEPRESSION, ANGER | O
 | monsterDecorations | List<MonsterDecoration> | 몬스터 꾸밈 재료 목록 | O
 |===
 
