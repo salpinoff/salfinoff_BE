@@ -35,6 +35,9 @@ public class Monster extends BaseEntity {
     @Column(nullable = false)
     private int currentInteractionCount;
 
+    @Column(nullable = false)
+    private int interactionCountPerEncouragement;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Emotion emotion;
@@ -51,6 +54,7 @@ public class Monster extends BaseEntity {
         this.monsterName = monsterName;
         this.rating = rating;
         this.interactionCount = RatingRange.getRatingRangeByRating(rating).getTotalInteractionCount();
+        this.interactionCountPerEncouragement = RatingRange.getRatingRangeByRating(rating).getInteractionCountPerEncouragement();
         this.currentInteractionCount = 0;
         this.emotion = emotion;
         this.content = content;

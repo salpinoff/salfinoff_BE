@@ -48,8 +48,8 @@ public class MonsterDocumentation extends Documentation {
 
         MonsterDetailsResponse monsterDetailsResponse =
                 new MonsterDetailsResponse(1L, "빡침몬", "khyou", 100,
-                        60, Monster.Emotion.DEPRESSION, "거 참 퇴사하기 딱 좋은 날씨네",
-                        List.of(monsterDecorationResponse));
+                        60, 20, Monster.Emotion.DEPRESSION,
+                        "거 참 퇴사하기 딱 좋은 날씨네", List.of(monsterDecorationResponse));
 
         when(monsterService.createMonster(any(), any())).thenReturn(monsterDetailsResponse);
 
@@ -66,8 +66,8 @@ public class MonsterDocumentation extends Documentation {
 
         MonsterDetailsResponse monsterDetailsResponse =
                 new MonsterDetailsResponse(1L, "빡침몬", "khyou", 100,
-                        60, Monster.Emotion.DEPRESSION, "거 참 퇴사하기 딱 좋은 날씨네",
-                        List.of(monsterDecorationResponse));
+                        60, 20, Monster.Emotion.DEPRESSION,
+                        "거 참 퇴사하기 딱 좋은 날씨네", List.of(monsterDecorationResponse));
 
         //when
         when(monsterService.getMonster(any(), anyLong())).thenReturn(monsterDetailsResponse);
@@ -86,11 +86,11 @@ public class MonsterDocumentation extends Documentation {
 
         List<MonsterDetailsResponse> monsterDetailsResponses = List.of(
                 new MonsterDetailsResponse(1L, "빡침몬", "khyou", 100,
-                        60, Monster.Emotion.DEPRESSION, "거 참 퇴사하기 딱 좋은 날씨네",
-                        List.of(monsterDecorationResponse)),
+                                60, 20, Monster.Emotion.DEPRESSION,
+                                "거 참 퇴사하기 딱 좋은 날씨네", List.of(monsterDecorationResponse)),
                 new MonsterDetailsResponse(2L, "화남몬", "khyou",150,
-                        10, Monster.Emotion.DEPRESSION, "화난건 뻥이고 다들 홧팅해라~!",
-                        List.of(monsterDecorationResponse))
+                        10, 30, Monster.Emotion.DEPRESSION,
+                        "화난건 뻥이고 다들 홧팅해라~!", List.of(monsterDecorationResponse))
         );
 
         PageImpl<MonsterDetailsResponse> response =
@@ -113,8 +113,8 @@ public class MonsterDocumentation extends Documentation {
 
         MonsterDetailsResponse monsterDetailsResponse =
                 new MonsterDetailsResponse(1L, "빡침몬", "khyou", 100,
-                        60, Monster.Emotion.DEPRESSION, "거 참 퇴사하기 딱 좋은 날씨네",
-                        List.of(monsterDecorationResponse));
+                        60, 20, Monster.Emotion.DEPRESSION,
+                        "거 참 퇴사하기 딱 좋은 날씨네", List.of(monsterDecorationResponse));
 
         //when
         when(monsterService.getRepMonsterByMember(any())).thenReturn(monsterDetailsResponse);
