@@ -2,6 +2,8 @@ package com.server.salpinoffServer.monster.service;
 
 import com.server.salpinoffServer.infra.auth.dto.MemberInfo;
 import com.server.salpinoffServer.infra.exception.NotFoundException;
+import com.server.salpinoffServer.member.domain.Member;
+import com.server.salpinoffServer.member.service.MemberRepository;
 import com.server.salpinoffServer.monster.domain.Monster;
 import com.server.salpinoffServer.monster.domain.MonsterDecoration;
 import com.server.salpinoffServer.monster.domain.MonsterMessage;
@@ -22,6 +24,7 @@ import java.util.Objects;
 public class MonsterService {
 
     private final MonsterRepository monsterRepository;
+    private final MemberRepository memberRepository;
 
     @Transactional
     public MonsterInteractionResponse interactMonster(Long monsterId, Long memberId, MonsterInteractionRequest request) {
@@ -49,30 +52,33 @@ public class MonsterService {
 
         Monster monster = monsterRepository.getMonster(monsterId);
 
+        Member member = memberRepository.getMember(monster.getMemberId());
+
         if (Objects.nonNull(memberInfo) && monster.isOwner(memberInfo.memberId())) {
-            return MonsterDetailsResponse.of(monster);
+            return MonsterDetailsResponse.from(monster, member.getUsername());
         }
 
         if (monster.isFreedom()) {
             throw new NotFoundException("자유를 찾아 떠나가 버린 몬스터입니다.");
         }
-        return MonsterDetailsResponse.of(monster);
+        return MonsterDetailsResponse.from(monster, member.getUsername());
     }
 
     @Transactional(readOnly = true)
-    public Page<MonsterDetailsResponse> getMonstersByMember(Long memberId, Pageable pageable) {
-        return monsterRepository.findMonstersByMember(memberId, pageable)
-                .map(MonsterDetailsResponse::of);
+    public Page<MonsterDetailsResponse> getMonstersByMember(MemberInfo memberInfo, Pageable pageable) {
+        return monsterRepository.findMonstersByMember(memberInfo.memberId(), pageable)
+                .map(monster -> MonsterDetailsResponse.from(monster, memberInfo.username()));
     }
 
     @Transactional(readOnly = true)
-    public MonsterDetailsResponse getRepMonsterByMember(Long memberId) {
-        return MonsterDetailsResponse.of(monsterRepository.getLatestMonsterByMember(memberId));
+    public MonsterDetailsResponse getRepMonsterByMember(MemberInfo memberInfo) {
+        return MonsterDetailsResponse
+                .from(monsterRepository.getLatestMonsterByMember(memberInfo.memberId()), memberInfo.username());
     }
 
     @Transactional
-    public MonsterDetailsResponse createMonster(Long memberId, MonsterCreationRequest request) {
-        Monster monster = monsterRepository.saveMonster(Monster.from(memberId, request));
+    public MonsterDetailsResponse createMonster(MemberInfo memberInfo, MonsterCreationRequest request) {
+        Monster monster = monsterRepository.saveMonster(Monster.from(memberInfo.memberId(), request));
 
         List<MonsterDecoration> monsterDecorations = request.getMonsterDecorations().stream()
                 .map(req -> new MonsterDecoration(monster.getId(), req.getDecorationType(), req.getDecorationValue()))
@@ -80,7 +86,7 @@ public class MonsterService {
 
         monster.addDecorations(monsterDecorations);
 
-        return MonsterDetailsResponse.of(monster);
+        return MonsterDetailsResponse.from(monster, memberInfo.username());
     }
 
     @Transactional

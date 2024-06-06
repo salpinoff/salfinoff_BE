@@ -30,19 +30,19 @@ public class JwtManager {
     }
 
     public String createRefreshToken(Member member) {
-        return createToken(member.getId(), member.getAuthority(), refreshTokenExpirationPeriod);
+        return createToken(member, refreshTokenExpirationPeriod);
     }
 
     public String createAccessToken(Member member) {
-        return createToken(member.getId(), member.getAuthority(), accessTokenExpirationPeriod);
+        return createToken(member, accessTokenExpirationPeriod);
     }
 
-    private String createToken(Long memberId, Member.Authority authority, long tokenExpirationPeriod) {
+    private String createToken(Member member, long tokenExpirationPeriod) {
         long now = System.currentTimeMillis();
 
         return Jwts.builder()
-                .setSubject(memberId.toString())
-                .addClaims(Map.of("authority", authority.name()))
+                .setSubject(member.getId().toString())
+                .addClaims(Map.of("authority", member.getAuthority().name(), "username", member.getUsername()))
                 .setIssuedAt(new Date(now))
                 .setExpiration(new Date(now + tokenExpirationPeriod))
                 .signWith(Keys.hmacShaKeyFor(jwtSecretKey.getBytes(StandardCharsets.UTF_8)))
@@ -59,6 +59,12 @@ public class JwtManager {
         Claims claim = getClaims(accessToken);
 
         return claim.get("authority", String.class);
+    }
+
+    public String getUsername(String accessToken) {
+        Claims claim = getClaims(accessToken);
+
+        return claim.get("username", String.class);
     }
 
     public boolean isExpired(String token) {

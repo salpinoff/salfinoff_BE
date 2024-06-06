@@ -35,7 +35,7 @@ public class MonsterController {
             @AuthenticationPrincipal MemberInfo memberInfo,
             @Valid PageRequest pageRequest) {
 
-        Page<MonsterDetailsResponse> response = monsterService.getMonstersByMember(memberInfo.memberId(), pageRequest.getPageable());
+        Page<MonsterDetailsResponse> response = monsterService.getMonstersByMember(memberInfo, pageRequest.getPageable());
 
         return ResponseEntity.ok().body(new PageResponse<>(response));
     }
@@ -43,7 +43,7 @@ public class MonsterController {
     @GetMapping("/my/rep")
     public ResponseEntity<MonsterDetailsResponse> getRepMonsterByMember(@AuthenticationPrincipal MemberInfo memberInfo) {
 
-        MonsterDetailsResponse response = monsterService.getRepMonsterByMember(memberInfo.memberId());
+        MonsterDetailsResponse response = monsterService.getRepMonsterByMember(memberInfo);
 
         return ResponseEntity.ok().body(response);
     }
@@ -51,7 +51,7 @@ public class MonsterController {
     @PostMapping
     public ResponseEntity<MonsterDetailsResponse> createMonster(@AuthenticationPrincipal MemberInfo memberInfo,
                                               @Valid @RequestBody MonsterCreationRequest request) {
-        MonsterDetailsResponse response = monsterService.createMonster(memberInfo.memberId(), request);
+        MonsterDetailsResponse response = monsterService.createMonster(memberInfo, request);
 
         return ResponseEntity.ok(response);
     }

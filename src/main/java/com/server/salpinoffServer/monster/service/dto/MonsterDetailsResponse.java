@@ -4,16 +4,13 @@ import com.server.salpinoffServer.monster.domain.Monster;
 
 import java.util.List;
 
-/**
- * @param emotion enum 으로 변경
- */
-public record MonsterDetailsResponse(Long monsterId, String monsterName, int interactionCount,
+public record MonsterDetailsResponse(Long monsterId, String monsterName, String ownerName, int interactionCount,
                                      int currentInteractionCount, Monster.Emotion emotion, String content,
                                      List<MonsterDecorationResponse> monsterDecorations) {
 
-    public static MonsterDetailsResponse of(Monster monster) {
-        return new MonsterDetailsResponse(monster.getId(), monster.getMonsterName(), monster.getInteractionCount(),
-                monster.getCurrentInteractionCount(), monster.getEmotion(),monster.getContent(),
-                monster.monsterDecorationResponses());
+    public static MonsterDetailsResponse from(Monster monster, String ownerName) {
+        return new MonsterDetailsResponse(monster.getId(), monster.getMonsterName(), ownerName,
+                monster.getInteractionCount(), monster.getCurrentInteractionCount(), monster.getEmotion(),
+                monster.getContent(), monster.monsterDecorationResponses());
     }
 }

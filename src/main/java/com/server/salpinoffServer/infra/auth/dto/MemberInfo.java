@@ -5,7 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public record MemberInfo(Long memberId, String authority) {
+public record MemberInfo(Long memberId, String authority, String username) {
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();

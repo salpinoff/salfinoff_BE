@@ -21,6 +21,7 @@ public class JwtManagerTest {
     void setUp() {
         when(member.getId()).thenReturn(1L);
         when(member.getAuthority()).thenReturn(Member.Authority.USER);
+        when(member.getUsername()).thenReturn("khyou");
     }
 
     @Test

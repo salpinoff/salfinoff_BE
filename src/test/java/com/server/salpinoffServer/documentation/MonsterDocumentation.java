@@ -47,7 +47,7 @@ public class MonsterDocumentation extends Documentation {
                 MonsterDecoration.Type.BACKGROUND_COLOR, "BLUE");
 
         MonsterDetailsResponse monsterDetailsResponse =
-                new MonsterDetailsResponse(1L, "빡침몬", 100,
+                new MonsterDetailsResponse(1L, "빡침몬", "khyou", 100,
                         60, Monster.Emotion.DEPRESSION, "거 참 퇴사하기 딱 좋은 날씨네",
                         List.of(monsterDecorationResponse));
 
@@ -65,7 +65,7 @@ public class MonsterDocumentation extends Documentation {
                 MonsterDecoration.Type.BACKGROUND_COLOR, "BLUE");
 
         MonsterDetailsResponse monsterDetailsResponse =
-                new MonsterDetailsResponse(1L, "빡침몬", 100,
+                new MonsterDetailsResponse(1L, "빡침몬", "khyou", 100,
                         60, Monster.Emotion.DEPRESSION, "거 참 퇴사하기 딱 좋은 날씨네",
                         List.of(monsterDecorationResponse));
 
@@ -85,10 +85,10 @@ public class MonsterDocumentation extends Documentation {
                 MonsterDecoration.Type.BACKGROUND_COLOR, "BLUE");
 
         List<MonsterDetailsResponse> monsterDetailsResponses = List.of(
-                new MonsterDetailsResponse(1L, "빡침몬", 100,
+                new MonsterDetailsResponse(1L, "빡침몬", "khyou", 100,
                         60, Monster.Emotion.DEPRESSION, "거 참 퇴사하기 딱 좋은 날씨네",
                         List.of(monsterDecorationResponse)),
-                new MonsterDetailsResponse(2L, "화남몬", 150,
+                new MonsterDetailsResponse(2L, "화남몬", "khyou",150,
                         10, Monster.Emotion.DEPRESSION, "화난건 뻥이고 다들 홧팅해라~!",
                         List.of(monsterDecorationResponse))
         );
@@ -97,7 +97,7 @@ public class MonsterDocumentation extends Documentation {
                 new PageImpl<>(monsterDetailsResponses, PageRequest.of(0, 10), 2L);
 
         //when
-        when(monsterService.getMonstersByMember(anyLong(), any())).thenReturn(response);
+        when(monsterService.getMonstersByMember(any(), any())).thenReturn(response);
 
         //then
         나의_몬스터_목록_조회(getRequestSpecification("monster-my-read").auth().oauth2("accessToken"));
@@ -112,12 +112,12 @@ public class MonsterDocumentation extends Documentation {
                 MonsterDecoration.Type.BACKGROUND_COLOR, "BLUE");
 
         MonsterDetailsResponse monsterDetailsResponse =
-                new MonsterDetailsResponse(1L, "빡침몬", 100,
+                new MonsterDetailsResponse(1L, "빡침몬", "khyou", 100,
                         60, Monster.Emotion.DEPRESSION, "거 참 퇴사하기 딱 좋은 날씨네",
                         List.of(monsterDecorationResponse));
 
         //when
-        when(monsterService.getRepMonsterByMember(anyLong())).thenReturn(monsterDetailsResponse);
+        when(monsterService.getRepMonsterByMember(any())).thenReturn(monsterDetailsResponse);
 
         //then
         나의_대표_퇴사몬_조회(getRequestSpecification("monster-my-rep-read").auth().oauth2("accessToken"));
