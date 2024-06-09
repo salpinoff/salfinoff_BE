@@ -12,11 +12,13 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
 import static com.server.salpinoffServer.monster.acceptance.MonsterSteps.*;
-import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
 public class MonsterDocumentation extends Documentation {
@@ -48,8 +50,10 @@ public class MonsterDocumentation extends Documentation {
 
         MonsterDetailsResponse monsterDetailsResponse =
                 new MonsterDetailsResponse(1L, "빡침몬", "khyou", 100,
-                        60, 20, Monster.Emotion.DEPRESSION,
-                        "거 참 퇴사하기 딱 좋은 날씨네", List.of(monsterDecorationResponse));
+                        60, 20, Monster.RatingRange.RANGE_2,
+                        Monster.Emotion.DEPRESSION, "거 참 퇴사하기 딱 좋은 날씨네",
+                        LocalDateTime.of(2024, 6, 9, 13, 0, 0),
+                        List.of(monsterDecorationResponse));
 
         when(monsterService.createMonster(any(), any())).thenReturn(monsterDetailsResponse);
 
@@ -66,8 +70,10 @@ public class MonsterDocumentation extends Documentation {
 
         MonsterDetailsResponse monsterDetailsResponse =
                 new MonsterDetailsResponse(1L, "빡침몬", "khyou", 100,
-                        60, 20, Monster.Emotion.DEPRESSION,
-                        "거 참 퇴사하기 딱 좋은 날씨네", List.of(monsterDecorationResponse));
+                        60, 20, Monster.RatingRange.RANGE_2,
+                        Monster.Emotion.DEPRESSION, "거 참 퇴사하기 딱 좋은 날씨네",
+                        LocalDateTime.of(2024, 6, 9, 13, 0, 0),
+                        List.of(monsterDecorationResponse));
 
         //when
         when(monsterService.getMonster(any(), anyLong())).thenReturn(monsterDetailsResponse);
@@ -84,13 +90,25 @@ public class MonsterDocumentation extends Documentation {
         MonsterDecorationResponse monsterDecorationResponse = new MonsterDecorationResponse(1L,
                 MonsterDecoration.Type.BACKGROUND_COLOR, "BLUE");
 
+        MonsterDetailsResponse monsterDetailsResponse =
+                new MonsterDetailsResponse(1L, "빡침몬", "khyou", 100,
+                        60, 20, Monster.RatingRange.RANGE_2,
+                        Monster.Emotion.DEPRESSION, "거 참 퇴사하기 딱 좋은 날씨네",
+                        LocalDateTime.of(2024, 6, 9, 13, 0, 0),
+                        List.of(monsterDecorationResponse));
+
+
         List<MonsterDetailsResponse> monsterDetailsResponses = List.of(
                 new MonsterDetailsResponse(1L, "빡침몬", "khyou", 100,
-                                60, 20, Monster.Emotion.DEPRESSION,
-                                "거 참 퇴사하기 딱 좋은 날씨네", List.of(monsterDecorationResponse)),
-                new MonsterDetailsResponse(2L, "화남몬", "khyou",150,
-                        10, 30, Monster.Emotion.DEPRESSION,
-                        "화난건 뻥이고 다들 홧팅해라~!", List.of(monsterDecorationResponse))
+                        60, 20, Monster.RatingRange.RANGE_2,
+                        Monster.Emotion.DEPRESSION, "거 참 퇴사하기 딱 좋은 날씨네",
+                        LocalDateTime.of(2024, 6, 9, 13, 0, 0),
+                        List.of(monsterDecorationResponse)),
+                new MonsterDetailsResponse(1L, "빡침몬", "khyou", 100,
+                        60, 20, Monster.RatingRange.RANGE_2,
+                        Monster.Emotion.DEPRESSION, "거 참 퇴사하기 딱 좋은 날씨네",
+                        LocalDateTime.of(2024, 6, 9, 13, 0, 0),
+                        List.of(monsterDecorationResponse))
         );
 
         PageImpl<MonsterDetailsResponse> response =
@@ -113,8 +131,10 @@ public class MonsterDocumentation extends Documentation {
 
         MonsterDetailsResponse monsterDetailsResponse =
                 new MonsterDetailsResponse(1L, "빡침몬", "khyou", 100,
-                        60, 20, Monster.Emotion.DEPRESSION,
-                        "거 참 퇴사하기 딱 좋은 날씨네", List.of(monsterDecorationResponse));
+                        60, 20, Monster.RatingRange.RANGE_2,
+                        Monster.Emotion.DEPRESSION, "거 참 퇴사하기 딱 좋은 날씨네",
+                        LocalDateTime.of(2024, 6, 9, 13, 0, 0),
+                        List.of(monsterDecorationResponse));
 
         //when
         when(monsterService.getRepMonsterByMember(any())).thenReturn(monsterDetailsResponse);
