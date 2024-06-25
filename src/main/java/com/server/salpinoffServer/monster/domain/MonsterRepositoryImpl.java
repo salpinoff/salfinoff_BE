@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import static com.server.salpinoffServer.monster.domain.QMonster.monster;
 import static com.server.salpinoffServer.monster.domain.QMonsterMessage.monsterMessage;
@@ -108,5 +109,18 @@ public class MonsterRepositoryImpl implements MonsterRepository {
                 .fetchFirst();
 
         return m != null;
+    }
+
+    @Override
+    public long getCheckedMessageCount(Long monsterId) {
+        Long checkedMessageCount = queryFactory
+                .select(monsterMessage.count())
+                .from(monsterMessage)
+                .where(
+                        monsterMessage.monsterId.eq(monsterId),
+                        monsterMessage.checked.isTrue())
+                .fetchOne();
+
+        return Optional.ofNullable(checkedMessageCount).orElse(0L);
     }
 }

@@ -119,4 +119,8 @@ public class MonsterService {
     public boolean hasMonsterForMember(Long memberId) {
         return monsterRepository.existsMonsterByMember(memberId);
     }
+
+    public long getCheckedMessageCount(Long monsterId) {
+        return monsterRepository.getCheckedMessageCount(monsterId);
+    }
 }

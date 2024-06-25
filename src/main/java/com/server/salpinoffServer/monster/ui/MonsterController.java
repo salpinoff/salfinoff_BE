@@ -80,10 +80,19 @@ public class MonsterController {
             @AuthenticationPrincipal MemberInfo memberInfo,
             @Valid PageRequest pageRequest) {
 
-        Page<MonsterMessagesResponse> response = monsterService.getMonsterMessages(monsterId, memberInfo.memberId(),
+        Page<MonsterMessagesResponse> monsterMessagesResponse = monsterService.getMonsterMessages(monsterId, memberInfo.memberId(),
                 pageRequest.getPageable());
 
-        return ResponseEntity.ok().body(new PageResponse<>(response));
+        long checkedMessageCount = monsterService.getCheckedMessageCount(monsterId);
+
+        MonsterMessagesPageResponse response =
+                MonsterMessagesPageResponse.builder()
+                        .page(monsterMessagesResponse)
+                        .checkedMessageCount(checkedMessageCount)
+                        .uncheckedMessageCount(monsterMessagesResponse.getTotalElements() - checkedMessageCount)
+                        .build();
+
+        return ResponseEntity.ok().body(response);
     }
 
     @PostMapping("/{monsterId}/messages/{messageId}")

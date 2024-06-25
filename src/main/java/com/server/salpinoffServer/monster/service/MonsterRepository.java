@@ -22,4 +22,6 @@ public interface MonsterRepository {
     MonsterMessage saveMonsterMessage(MonsterMessage monsterMessage);
 
     boolean existsMonsterByMember(Long memberId);
+
+    long getCheckedMessageCount(Long monsterId);
 }
