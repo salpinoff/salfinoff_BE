@@ -357,7 +357,9 @@ Response body
 | content | List<MessageDto> | 컨텐츠 | O
 | size | int | 한 페이지에 출력되는 컨텐츠 개수 | O
 | page | int | 페이지 | O
-| totalElements | int | 총 컨텐츠 개수 | O
+| totalElements | long | 총 컨텐츠 개수 | O
+| checkedMessageCount | long | 확인된 메시지 개수 | O
+| uncheckedMessageCount | long | 미확인 메시지 개수 | O
 |===
 
 MessageDto
@@ -412,3 +414,5 @@ operation::encouragement-message-send[snippets='http-response']
 * 몬스터 상세 조회 반환 값에 서브 유저 인터렉션 카운트 값 추가
 - 1.0.5 (2024-06-09)
 * 몬스터 상세 조회 반환 값에 rating 범위, 생성일 추가
+- 1.0.6 (2024-06-25)
+* 몬스터 메시지 목록 조회 반환 값에 확인 메시지 개수, 미확인 메시지 개수 추가

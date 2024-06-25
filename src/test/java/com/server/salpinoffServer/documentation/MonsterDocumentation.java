@@ -183,6 +183,8 @@ public class MonsterDocumentation extends Documentation {
         when(monsterService.getMonsterMessages(anyLong(), anyLong(), any()))
                 .thenReturn(new PageImpl<>(messages, PageRequest.of(0, 10), 2L));
 
+        when(monsterService.getCheckedMessageCount(anyLong())).thenReturn(1L);
+
         //then
         응원_메시지_조회(getRequestSpecification("monster-messages-read").auth().oauth2("accessToken"), 1L);
     }
