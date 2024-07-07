@@ -117,7 +117,10 @@ MonsterDecoration
 별도의 검증 없이 값이 저장됩니다. 프론트에서 상수를 만들어서 저장해주세요.| O
 | decorationType | String | 꾸밈 재료 타입 +
 정해진 타입만 가능합니다. +
-BACKGROUND_COLOR: 배경색 | O
+BACKGROUND_COLOR: 배경색 +
+FACE: 얼굴 +
+CAP: 모자 +
+ACCESSORY: 소품 | O
 |===
 
 operation::monster-creation[snippets='http-response']
