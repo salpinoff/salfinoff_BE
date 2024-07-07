@@ -31,6 +31,9 @@ public class MonsterDecoration extends BaseEntity {
     }
 
     public enum Type {
-        BACKGROUND_COLOR
+        BACKGROUND_COLOR,
+        FACE,
+        CAP,
+        ACCESSORY
     }
 }
