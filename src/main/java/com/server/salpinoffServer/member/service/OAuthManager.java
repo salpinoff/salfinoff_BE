@@ -33,8 +33,18 @@ public class OAuthManager {
     @Value("${props.oauth.kakao.redirect_uri}")
     private String kakaoRedirectUri;
 
-    public String findSocialKeyByKakao(LoginKakaoRequest request) {
+    @Value("${props.oauth.kakao.test_redirect_uri}")
+    private String kakaoRedirecUriInTestEnv;
 
+    public String findSocialKeyByKakao(LoginKakaoRequest request) {
+        return findSocialKeyByKakao(request, kakaoRedirectUri);
+    }
+
+    public String findSocialKeyByKakaoInTestEnv(LoginKakaoRequest request) {
+        return findSocialKeyByKakao(request, kakaoRedirecUriInTestEnv);
+    }
+
+    private String findSocialKeyByKakao(LoginKakaoRequest request, String kakaoRedirectUri) {
         KakaoTokenRequest kakaoTokenRequest = new KakaoTokenRequest(kakaoClientId, kakaoRedirectUri, request.getCode());
 
         KakaoTokenResponse kakaoTokenResponse =

@@ -26,6 +26,14 @@ public class MemberController {
         return ResponseEntity.ok(loginResponse);
     }
 
+    @PostMapping("/login/kakao/test")
+    public ResponseEntity<LoginResponse> loginKakaoInTestEnv(@Valid @RequestBody LoginKakaoRequest request) {
+        String socialKey = oAuthManager.findSocialKeyByKakao(request);
+        LoginResponse loginResponse = memberService.login(socialKey);
+
+        return ResponseEntity.ok(loginResponse);
+    }
+
     @PostMapping("/token/refresh")
     public ResponseEntity<LoginResponse> refreshToken(@Valid @RequestBody RefreshTokenRequest request) {
         LoginResponse response = memberService.refreshToken(request);
