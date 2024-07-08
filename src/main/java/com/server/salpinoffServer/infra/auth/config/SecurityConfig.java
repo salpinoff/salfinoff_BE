@@ -46,7 +46,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(registry -> registry
                         .requestMatchers(HttpMethod.GET, "/api/v1/monsters/{monsterId}", "/health", "/redirect")
                         .permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/v1/members/login/*", "/api/v1/members/token/refresh",
+                        .requestMatchers(HttpMethod.POST, "/api/v1/members/login/kakao",
+                                "/api/v1/members/login/kakao/test",
+                                "/api/v1/members/token/refresh",
                                 "api/v1/monsters/{monsterId}/encouragement")
                         .permitAll()
                         .anyRequest().hasAuthority("USER"));
