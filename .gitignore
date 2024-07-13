@@ -9,6 +9,7 @@ build/
 **/application-dev.yml
 **/application-prod.yml
 **/application-test.yml
+**/application-stage.yml
 
 ### STS ###
 .apt_generated
