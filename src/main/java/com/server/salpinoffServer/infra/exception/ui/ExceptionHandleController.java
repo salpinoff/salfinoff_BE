@@ -25,10 +25,16 @@ public class ExceptionHandleController {
         return createExceptionResponseEntity(HttpStatus.NOT_FOUND, e.getMessage());
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ExceptionResponse> handleIllegalArgumentException(IllegalArgumentException e) {
+        log.warn("IllegalArgumentException msg: {}", e.getMessage());
+        return createExceptionResponseEntity(HttpStatus.BAD_REQUEST, e.getMessage());
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ExceptionResponse> handleAnotherException(Exception e) {
-        log.warn("Exception msg: {}", e.getMessage());
-        return createExceptionResponseEntity(HttpStatus.BAD_REQUEST, e.getMessage());
+        log.error("Exception msg: {}", e.getMessage());
+        return createExceptionResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
     }
 
     private ResponseEntity<ExceptionResponse> createExceptionResponseEntity(HttpStatus s, String e) {
