@@ -50,7 +50,7 @@ public class MonsterDocumentation extends Documentation {
 
         MonsterDetailsResponse monsterDetailsResponse =
                 new MonsterDetailsResponse(1L, "빡침몬", "khyou", 100,
-                        60, 20, Monster.RatingRange.RANGE_2,
+                        60, 20, Monster.RatingRange.RANGE_2, 27,
                         Monster.Emotion.DEPRESSION, "거 참 퇴사하기 딱 좋은 날씨네",
                         LocalDateTime.of(2024, 6, 9, 13, 0, 0),
                         List.of(monsterDecorationResponse));
@@ -70,7 +70,7 @@ public class MonsterDocumentation extends Documentation {
 
         MonsterDetailsResponse monsterDetailsResponse =
                 new MonsterDetailsResponse(1L, "빡침몬", "khyou", 100,
-                        60, 20, Monster.RatingRange.RANGE_2,
+                        60, 20, Monster.RatingRange.RANGE_2, 27,
                         Monster.Emotion.DEPRESSION, "거 참 퇴사하기 딱 좋은 날씨네",
                         LocalDateTime.of(2024, 6, 9, 13, 0, 0),
                         List.of(monsterDecorationResponse));
@@ -92,7 +92,7 @@ public class MonsterDocumentation extends Documentation {
 
         MonsterDetailsResponse monsterDetailsResponse =
                 new MonsterDetailsResponse(1L, "빡침몬", "khyou", 100,
-                        60, 20, Monster.RatingRange.RANGE_2,
+                        60, 20, Monster.RatingRange.RANGE_2, 27,
                         Monster.Emotion.DEPRESSION, "거 참 퇴사하기 딱 좋은 날씨네",
                         LocalDateTime.of(2024, 6, 9, 13, 0, 0),
                         List.of(monsterDecorationResponse));
@@ -100,12 +100,12 @@ public class MonsterDocumentation extends Documentation {
 
         List<MonsterDetailsResponse> monsterDetailsResponses = List.of(
                 new MonsterDetailsResponse(1L, "빡침몬", "khyou", 100,
-                        60, 20, Monster.RatingRange.RANGE_2,
+                        60, 20, Monster.RatingRange.RANGE_2, 27,
                         Monster.Emotion.DEPRESSION, "거 참 퇴사하기 딱 좋은 날씨네",
                         LocalDateTime.of(2024, 6, 9, 13, 0, 0),
                         List.of(monsterDecorationResponse)),
                 new MonsterDetailsResponse(1L, "빡침몬", "khyou", 100,
-                        60, 20, Monster.RatingRange.RANGE_2,
+                        60, 20, Monster.RatingRange.RANGE_2, 27,
                         Monster.Emotion.DEPRESSION, "거 참 퇴사하기 딱 좋은 날씨네",
                         LocalDateTime.of(2024, 6, 9, 13, 0, 0),
                         List.of(monsterDecorationResponse))
@@ -131,7 +131,7 @@ public class MonsterDocumentation extends Documentation {
 
         MonsterDetailsResponse monsterDetailsResponse =
                 new MonsterDetailsResponse(1L, "빡침몬", "khyou", 100,
-                        60, 20, Monster.RatingRange.RANGE_2,
+                        60, 20, Monster.RatingRange.RANGE_2, 27,
                         Monster.Emotion.DEPRESSION, "거 참 퇴사하기 딱 좋은 날씨네",
                         LocalDateTime.of(2024, 6, 9, 13, 0, 0),
                         List.of(monsterDecorationResponse));
