@@ -138,6 +138,7 @@ RANGE_2: 26~50 사이의 rating +
 RANGE_3: 51~75 사이의 rating +
 RANGE_4: 76~100 사이의 rating |
 rating 범위 | O
+| rating | int | 스트레스 수치 | O
 | content | String | 친구들에게 공유할 메시지 | O
 | emotion | String | 감정 +
 종류: DEPRESSION, ANGER | O
@@ -187,6 +188,7 @@ RANGE_2: 26~50 사이의 rating +
 RANGE_3: 51~75 사이의 rating +
 RANGE_4: 76~100 사이의 rating |
 rating 범위 | O
+| rating | int | 스트레스 수치 | O
 | content | String | 친구들에게 공유할 메시지 | O
 | emotion | String | 감정 +
 종류: DEPRESSION, ANGER | O
@@ -246,6 +248,7 @@ RANGE_2: 26~50 사이의 rating +
 RANGE_3: 51~75 사이의 rating +
 RANGE_4: 76~100 사이의 rating |
 rating 범위 | O
+| rating | int | 스트레스 수치 | O
 | content | String | 친구들에게 공유할 메시지 | O
 | emotion | String | 감정 +
 종류: DEPRESSION, ANGER | O
@@ -287,6 +290,7 @@ RANGE_2: 26~50 사이의 rating +
 RANGE_3: 51~75 사이의 rating +
 RANGE_4: 76~100 사이의 rating |
 rating 범위 | O
+| rating | int | 스트레스 수치 | O
 | content | String | 친구들에게 공유할 메시지 | O
 | emotion | String | 감정 +
 종류: DEPRESSION, ANGER | O
