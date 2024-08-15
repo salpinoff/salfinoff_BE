@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -47,6 +48,8 @@ public class Monster extends BaseEntity {
 
     @Embedded
     private MonsterDecorations monsterDecorations = new MonsterDecorations();
+
+    private LocalDateTime completedAt;
 
     @Builder
     public Monster(Long memberId, String monsterName, int rating, Emotion emotion, String content) {
@@ -105,8 +108,17 @@ public class Monster extends BaseEntity {
 
         int totalInteractionCount = this.currentInteractionCount + count;
 
-        this.currentInteractionCount = this.interactionCount <= totalInteractionCount ?
-                this.interactionCount : totalInteractionCount;
+        // totalInteractionCount 가 총 카운트에 미치지 못한 경우
+        if (this.interactionCount > totalInteractionCount) {
+            this.currentInteractionCount = totalInteractionCount;
+            return;
+        }
+
+        // totalInteractionCount 가 총 카운트 이상인 경우
+        if (this.completedAt == null) {
+            this.completedAt = LocalDateTime.now();
+        }
+        this.currentInteractionCount = this.interactionCount;
     }
 
     public enum Emotion {
