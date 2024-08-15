@@ -44,7 +44,9 @@ public class SecurityConfig {
                 .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtExceptionFilter, JwtAuthorizationFilter.class)
                 .authorizeHttpRequests(registry -> registry
-                        .requestMatchers(HttpMethod.GET, "/api/v1/monsters/{monsterId}", "/health", "/redirect")
+                        .requestMatchers(HttpMethod.GET, "/api/v1/monsters/{monsterId}", "/health", "/redirect",
+                                "api/v1/monsters/encryption/{encryptedMonsterId}/decryption",
+                                "api/v1/monsters/encryption/{encryptedMonsterId}")
                         .permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/members/login/kakao",
                                 "/api/v1/members/login/kakao/test",

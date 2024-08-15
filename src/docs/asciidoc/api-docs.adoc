@@ -127,6 +127,7 @@ operation::monster-creation[snippets='http-response']
 |===
 | key | type | description | required
 | monsterId | Long | 몬스터 고유 id (pk) | O
+| encryptedMonsterId | String | 암호화된 몬스터 고유 id | O
 | monsterName | String | 몬스터 이름 | O
 | ownerName | String | 몬스터 주인 이름 | O
 | interactionCount | int | 인터렉션 수 | O
@@ -177,6 +178,7 @@ operation::monster-details-read[snippets='http-response']
 |===
 | key | type | description | required
 | monsterId | Long | 몬스터 고유 id (pk) | O
+| encryptedMonsterId | String | 암호화된 몬스터 고유 id | O
 | monsterName | String | 몬스터 이름 | O
 | ownerName | String | 몬스터 주인 이름 | O
 | interactionCount | int | 인터렉션 수 | O
@@ -211,6 +213,71 @@ CAP: 모자 +
 ACCESSORY: 소품 | O
 |===
 
+=== 몬스터 상세 조회 (암호화 키 사용)
+
+NOTE: 메인 유저, 서브 유저 모두 사용 가능합니다.
+
+operation::monster-details-read-encrypted[snippets='http-request']
+Path Params
+|===
+| key | type | description | required
+| encryptedMonsterId | String | 암호화된 몬스터 고유 id | O
+|===
+
+operation::monster-details-read-encrypted[snippets='http-response']
+|===
+| key | type | description | required
+| monsterId | Long | 몬스터 고유 id (pk) | O
+| encryptedMonsterId | String | 암호화된 몬스터 고유 id | O
+| monsterName | String | 몬스터 이름 | O
+| ownerName | String | 몬스터 주인 이름 | O
+| interactionCount | int | 인터렉션 수 | O
+| currentInteractionCount | int | 현재 인터렉션 수 | O
+| interactionCountPerEncouragement | int | 한 번의 응원 당 부여되는 인터렉션 수 +
+(서브 유저가 응원을 보내기 위해 인터렉션 해야 하는 횟수) | O
+| ratingRange | RANGE_1: 1~25 사이의 rating +
+RANGE_2: 26~50 사이의 rating +
+RANGE_3: 51~75 사이의 rating +
+RANGE_4: 76~100 사이의 rating |
+rating 범위 | O
+| rating | int | 스트레스 수치 | O
+| content | String | 친구들에게 공유할 메시지 | O
+| emotion | String | 감정 +
+종류: DEPRESSION, ANGER | O
+| createdAt | LocalDateTime | 몬스터 생성일 +
+패턴: yyyyMMdd'T'HHmmss | O
+| monsterDecorations | List<MonsterDecoration> | 몬스터 꾸밈 재료 목록 | O
+|===
+
+MonsterDecoration
+|===
+| key | type | description | required
+| decorationId | Long | 꾸밈 id (pk) | O
+| decorationValue | String | 꾸밈 재료 값 +
+별도의 검증 없이 값이 저장됩니다. 프론트에서 상수를 만들어서 저장해주세요.| O
+| decorationType | String | 꾸밈 재료 타입 +
+정해진 타입만 가능합니다. +
+BACKGROUND_COLOR: 배경색 +
+FACE: 얼굴 +
+CAP: 모자 +
+ACCESSORY: 소품 | O
+|===
+
+=== 암호화된 몬스터 id 복호화
+operation::monster-decrypt-id[snippets='http-request']
+Path Params
+|===
+| key | type | description | required
+| encryptedMonsterId | String | 암호화된 몬스터 고유 id | O
+|===
+
+operation::monster-decrypt-id[snippets='http-response']
+Response body
+|===
+| key | type | description | required
+| monsterId | Long | 몬스터 고유 id (pk) | O
+|===
+
 === 나의 몬스터 목록 조회
 operation::monster-my-read[snippets='http-request']
 RequestParams
@@ -237,6 +304,7 @@ MonsterDto
 |===
 | key | type | description | required
 | monsterId | Long | 몬스터 고유 id (pk) | O
+| encryptedMonsterId | String | 암호화된 몬스터 고유 id | O
 | monsterName | String | 몬스터 이름 | O
 | ownerName | String | 몬스터 주인 이름 | O
 | interactionCount | int | 인터렉션 수 | O
@@ -279,6 +347,7 @@ operation::monster-my-rep-read[snippets='http-response']
 |===
 | key | type | description | required
 | monsterId | Long | 몬스터 고유 id (pk) | O
+| encryptedMonsterId | String | 암호화된 몬스터 고유 id | O
 | monsterName | String | 몬스터 이름 | O
 | ownerName | String | 몬스터 주인 이름 | O
 | interactionCount | int | 인터렉션 수 | O
@@ -435,3 +504,7 @@ operation::encouragement-message-send[snippets='http-response']
 * 몬스터 상세 조회 반환 값에 rating 범위, 생성일 추가
 - 1.0.6 (2024-06-25)
 * 몬스터 메시지 목록 조회 반환 값에 확인 메시지 개수, 미확인 메시지 개수 추가
+- 1.0.7 (2024-08-15)
+* 몬스터 암호화 키 추가
+* 몬스터 암호화 키 복호화 api 추가
+* 몬스터 암호화 키로 몬스터 조회 api 추가

@@ -109,4 +109,53 @@ public class MonsterAcceptanceTest extends BaseAcceptanceTest {
         assertThat(메시지_확인_후_응원_메시지_조회_응답값.jsonPath().getInt("uncheckedMessageCount"))
                 .isEqualTo(1);
     }
+
+    /**
+     * Given: 몬스터를 만든다.
+     * When: 몬스터의 암호화 키로 몬스터를 조회한다.
+     * Then: 생성한 몬스터가 조회된다.
+     */
+    @Test
+    void getMonsterByEncryptedKey() {
+        //given
+        String accessToken = login();
+
+        몬스터_생성(accessToken, 몬스터_생성_요청값("화남이", 100));
+
+        //when
+        ExtractableResponse<Response> 나의_몬스터_목록_조회_응답값 = 나의_몬스터_목록_조회(accessToken);
+
+        long monsterId = 나의_몬스터_목록_조회_응답값.jsonPath().getLong("content[0].monsterId");
+
+        String encryptedKey = 나의_몬스터_목록_조회_응답값.jsonPath().getString("content[0].encryptedMonsterId");
+
+        //then
+        ExtractableResponse<Response> 암호화키로_몬스터_조회_응답값 = 암호화키로_몬스터_조회(accessToken, encryptedKey);
+
+        assertThat(암호화키로_몬스터_조회_응답값.jsonPath().getLong("monsterId")).isEqualTo(monsterId);
+    }
+
+    /**
+     * Given: 몬스터를 만든다.
+     * When: 몬스터의 암호화 키를 복호화 한다.
+     * Then: 생성한 몬스터의 아이디와 복호환한 키 값이 동일하다.
+     */
+    @Test
+    void decryptKey() {
+        //given
+        String accessToken = login();
+
+        몬스터_생성(accessToken, 몬스터_생성_요청값("화남이", 100));
+
+        //when
+        ExtractableResponse<Response> 나의_몬스터_목록_조회_응답값 = 나의_몬스터_목록_조회(accessToken);
+
+        long monsterId = 나의_몬스터_목록_조회_응답값.jsonPath().getLong("content[0].monsterId");
+
+        String encryptedKey = 나의_몬스터_목록_조회_응답값.jsonPath().getString("content[0].encryptedMonsterId");
+        //then
+        ExtractableResponse<Response> 몬스터_id_복호화_응답값 = 몬스터_id_복호화(accessToken, encryptedKey);
+
+        assertThat(몬스터_id_복호화_응답값.jsonPath().getLong("monsterId")).isEqualTo(monsterId);
+    }
 }

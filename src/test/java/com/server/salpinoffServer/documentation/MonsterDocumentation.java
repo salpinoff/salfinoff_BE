@@ -3,10 +3,7 @@ package com.server.salpinoffServer.documentation;
 import com.server.salpinoffServer.monster.domain.Monster;
 import com.server.salpinoffServer.monster.domain.MonsterDecoration;
 import com.server.salpinoffServer.monster.service.MonsterService;
-import com.server.salpinoffServer.monster.service.dto.MonsterDecorationResponse;
-import com.server.salpinoffServer.monster.service.dto.MonsterDetailsResponse;
-import com.server.salpinoffServer.monster.service.dto.MonsterInteractionResponse;
-import com.server.salpinoffServer.monster.service.dto.MonsterMessagesResponse;
+import com.server.salpinoffServer.monster.service.dto.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.PageImpl;
@@ -17,8 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.server.salpinoffServer.monster.acceptance.MonsterSteps.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
 public class MonsterDocumentation extends Documentation {
@@ -49,7 +45,7 @@ public class MonsterDocumentation extends Documentation {
                 MonsterDecoration.Type.BACKGROUND_COLOR, "BLUE");
 
         MonsterDetailsResponse monsterDetailsResponse =
-                new MonsterDetailsResponse(1L, "빡침몬", "khyou", 100,
+                new MonsterDetailsResponse(1L, "adfhaidfhakdfadf", "빡침몬", "khyou", 100,
                         60, 20, Monster.RatingRange.RANGE_2, 27,
                         Monster.Emotion.DEPRESSION, "거 참 퇴사하기 딱 좋은 날씨네",
                         LocalDateTime.of(2024, 6, 9, 13, 0, 0),
@@ -69,7 +65,7 @@ public class MonsterDocumentation extends Documentation {
                 MonsterDecoration.Type.BACKGROUND_COLOR, "BLUE");
 
         MonsterDetailsResponse monsterDetailsResponse =
-                new MonsterDetailsResponse(1L, "빡침몬", "khyou", 100,
+                new MonsterDetailsResponse(1L, "adfhaidfhakdfadf", "빡침몬", "khyou", 100,
                         60, 20, Monster.RatingRange.RANGE_2, 27,
                         Monster.Emotion.DEPRESSION, "거 참 퇴사하기 딱 좋은 날씨네",
                         LocalDateTime.of(2024, 6, 9, 13, 0, 0),
@@ -91,7 +87,7 @@ public class MonsterDocumentation extends Documentation {
                 MonsterDecoration.Type.BACKGROUND_COLOR, "BLUE");
 
         MonsterDetailsResponse monsterDetailsResponse =
-                new MonsterDetailsResponse(1L, "빡침몬", "khyou", 100,
+                new MonsterDetailsResponse(1L, "adfhaidfhakdfadf", "빡침몬", "khyou", 100,
                         60, 20, Monster.RatingRange.RANGE_2, 27,
                         Monster.Emotion.DEPRESSION, "거 참 퇴사하기 딱 좋은 날씨네",
                         LocalDateTime.of(2024, 6, 9, 13, 0, 0),
@@ -99,12 +95,12 @@ public class MonsterDocumentation extends Documentation {
 
 
         List<MonsterDetailsResponse> monsterDetailsResponses = List.of(
-                new MonsterDetailsResponse(1L, "빡침몬", "khyou", 100,
+                new MonsterDetailsResponse(1L, "adfhaidfhakdfadf", "빡침몬", "khyou", 100,
                         60, 20, Monster.RatingRange.RANGE_2, 27,
                         Monster.Emotion.DEPRESSION, "거 참 퇴사하기 딱 좋은 날씨네",
                         LocalDateTime.of(2024, 6, 9, 13, 0, 0),
                         List.of(monsterDecorationResponse)),
-                new MonsterDetailsResponse(1L, "빡침몬", "khyou", 100,
+                new MonsterDetailsResponse(1L, "adfhaidfhakdfadf", "빡침몬", "khyou", 100,
                         60, 20, Monster.RatingRange.RANGE_2, 27,
                         Monster.Emotion.DEPRESSION, "거 참 퇴사하기 딱 좋은 날씨네",
                         LocalDateTime.of(2024, 6, 9, 13, 0, 0),
@@ -130,7 +126,7 @@ public class MonsterDocumentation extends Documentation {
                 MonsterDecoration.Type.BACKGROUND_COLOR, "BLUE");
 
         MonsterDetailsResponse monsterDetailsResponse =
-                new MonsterDetailsResponse(1L, "빡침몬", "khyou", 100,
+                new MonsterDetailsResponse(1L, "adfhaidfhakdfadf", "빡침몬", "khyou", 100,
                         60, 20, Monster.RatingRange.RANGE_2, 27,
                         Monster.Emotion.DEPRESSION, "거 참 퇴사하기 딱 좋은 날씨네",
                         LocalDateTime.of(2024, 6, 9, 13, 0, 0),
@@ -204,5 +200,38 @@ public class MonsterDocumentation extends Documentation {
         //then
         응원의_메시지_보내기(getRequestSpecification("encouragement-message-send"), 1L,
                 "옥지", "빵빵아 힘내!");
+    }
+
+    @Test
+    void getMonsterByEncryptedKey() {
+        //given
+        MonsterDecorationResponse monsterDecorationResponse = new MonsterDecorationResponse(1L,
+                MonsterDecoration.Type.BACKGROUND_COLOR, "BLUE");
+
+        MonsterDetailsResponse monsterDetailsResponse =
+                new MonsterDetailsResponse(1L, "adfhaidfhakdfadf", "빡침몬", "khyou", 100,
+                        60, 20, Monster.RatingRange.RANGE_2, 27,
+                        Monster.Emotion.DEPRESSION, "거 참 퇴사하기 딱 좋은 날씨네",
+                        LocalDateTime.of(2024, 6, 9, 13, 0, 0),
+                        List.of(monsterDecorationResponse));
+
+        //when
+        when(monsterService.decryptMonsterId(anyString())).thenReturn(new MonsterIdResponse(1L));
+        when(monsterService.getMonster(any(), anyLong())).thenReturn(monsterDetailsResponse);
+
+        //then
+        암호화키로_몬스터_조회(getRequestSpecification("monster-details-read-encrypted"), "dfadadfadsfadf");
+    }
+
+    @Test
+    void decryptMonsterId() {
+        //given
+        MonsterIdResponse monsterIdResponse = new MonsterIdResponse(1L);
+
+        //when
+        when(monsterService.decryptMonsterId(anyString())).thenReturn(monsterIdResponse);
+
+        //then
+        몬스터_id_복호화(getRequestSpecification("monster-decrypt-id"), "dfadadfadsfadf");
     }
 }
