@@ -196,4 +196,32 @@ public class MonsterSteps {
                 .then().statusCode(HttpStatus.OK.value())
                 .log().all().extract();
     }
+
+    public static ExtractableResponse<Response> 암호화키로_몬스터_조회(String accessToken, String encryptedMonsterId) {
+        return 암호화키로_몬스터_조회(RestAssured.given().auth().oauth2(accessToken).log().all(), encryptedMonsterId);
+    }
+
+    public static ExtractableResponse<Response> 암호화키로_몬스터_조회(RequestSpecification requestSpecification, String encryptedMonsterId) {
+
+        return requestSpecification
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .pathParam("encryptedMonsterId", encryptedMonsterId)
+                .when().get(PATH_PREFIX + "/encryption/{encryptedMonsterId}")
+                .then().statusCode(HttpStatus.OK.value())
+                .log().all().extract();
+    }
+
+    public static ExtractableResponse<Response> 몬스터_id_복호화(String accessToken, String encryptedMonsterId) {
+        return 몬스터_id_복호화(RestAssured.given().auth().oauth2(accessToken).log().all(), encryptedMonsterId);
+    }
+
+    public static ExtractableResponse<Response> 몬스터_id_복호화(RequestSpecification requestSpecification, String encryptedMonsterId) {
+
+        return requestSpecification
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .pathParam("encryptedMonsterId", encryptedMonsterId)
+                .when().get(PATH_PREFIX + "/encryption/{encryptedMonsterId}/decryption")
+                .then().statusCode(HttpStatus.OK.value())
+                .log().all().extract();
+    }
 }

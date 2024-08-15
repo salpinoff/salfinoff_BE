@@ -49,7 +49,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/v1/members/login/kakao",
                                 "/api/v1/members/login/kakao/test",
                                 "/api/v1/members/token/refresh",
-                                "api/v1/monsters/{monsterId}/encouragement")
+                                "api/v1/monsters/{monsterId}/encouragement",
+                                "api/v1/monsters/encryption/{encryptedMonsterId}/decryption",
+                                "api/v1/monsters/encryption/{encryptedMonsterId}")
                         .permitAll()
                         .anyRequest().hasAuthority("USER"));
 

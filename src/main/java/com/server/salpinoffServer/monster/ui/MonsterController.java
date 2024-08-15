@@ -111,4 +111,21 @@ public class MonsterController {
 
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/encryption/{encryptedMonsterId}")
+    public ResponseEntity<MonsterDetailsResponse> getMonsterByEncryptedMonsterId(
+            @AuthenticationPrincipal MemberInfo memberInfo,
+            @PathVariable String encryptedMonsterId) {
+        MonsterIdResponse monsterIdResponse = monsterService.decryptMonsterId(encryptedMonsterId);
+
+        MonsterDetailsResponse response = monsterService.getMonster(memberInfo, monsterIdResponse.getMonsterId());
+
+        return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping("/encryption/{encryptedMonsterId}/decryption")
+    public ResponseEntity<MonsterIdResponse> decryptMonsterId(@PathVariable String encryptedMonsterId) {
+
+        return ResponseEntity.ok(monsterService.decryptMonsterId(encryptedMonsterId));
+    }
 }

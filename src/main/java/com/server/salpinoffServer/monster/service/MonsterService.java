@@ -2,6 +2,7 @@ package com.server.salpinoffServer.monster.service;
 
 import com.server.salpinoffServer.infra.auth.dto.MemberInfo;
 import com.server.salpinoffServer.infra.exception.NotFoundException;
+import com.server.salpinoffServer.infra.ui.dto.PageResponse;
 import com.server.salpinoffServer.member.domain.Member;
 import com.server.salpinoffServer.member.service.MemberRepository;
 import com.server.salpinoffServer.monster.domain.Monster;
@@ -25,6 +26,7 @@ public class MonsterService {
 
     private final MonsterRepository monsterRepository;
     private final MemberRepository memberRepository;
+    private final MonsterEncryptService monsterEncryptService;
 
     @Transactional
     public MonsterInteractionResponse interactMonster(Long monsterId, Long memberId, MonsterInteractionRequest request) {
@@ -55,25 +57,26 @@ public class MonsterService {
         Member member = memberRepository.getMember(monster.getMemberId());
 
         if (Objects.nonNull(memberInfo) && monster.isOwner(memberInfo.memberId())) {
-            return MonsterDetailsResponse.from(monster, member.getUsername());
+            return MonsterDetailsResponse.from(monster, member.getUsername(), monsterEncryptService.encryptMonsterId(monster));
         }
 
         if (monster.isFreedom()) {
             throw new NotFoundException("자유를 찾아 떠나가 버린 몬스터입니다.");
         }
-        return MonsterDetailsResponse.from(monster, member.getUsername());
+        return MonsterDetailsResponse.from(monster, member.getUsername(), monsterEncryptService.encryptMonsterId(monster));
     }
 
     @Transactional(readOnly = true)
     public Page<MonsterDetailsResponse> getMonstersByMember(MemberInfo memberInfo, Pageable pageable) {
         return monsterRepository.findMonstersByMember(memberInfo.memberId(), pageable)
-                .map(monster -> MonsterDetailsResponse.from(monster, memberInfo.username()));
+                .map(monster -> MonsterDetailsResponse.from(monster, memberInfo.username(), monsterEncryptService.encryptMonsterId(monster)));
     }
 
     @Transactional(readOnly = true)
     public MonsterDetailsResponse getRepMonsterByMember(MemberInfo memberInfo) {
-        return MonsterDetailsResponse
-                .from(monsterRepository.getLatestMonsterByMember(memberInfo.memberId()), memberInfo.username());
+        Monster monster = monsterRepository.getLatestMonsterByMember(memberInfo.memberId());
+
+        return MonsterDetailsResponse.from(monster, memberInfo.username(), monsterEncryptService.encryptMonsterId(monster));
     }
 
     @Transactional
@@ -86,7 +89,7 @@ public class MonsterService {
 
         monster.addDecorations(monsterDecorations);
 
-        return MonsterDetailsResponse.from(monster, memberInfo.username());
+        return MonsterDetailsResponse.from(monster, memberInfo.username(), monsterEncryptService.encryptMonsterId(monster));
     }
 
     @Transactional
@@ -122,5 +125,9 @@ public class MonsterService {
 
     public long getCheckedMessageCount(Long monsterId) {
         return monsterRepository.getCheckedMessageCount(monsterId);
+    }
+
+    public MonsterIdResponse decryptMonsterId(String encryptedMonsterId) {
+        return new MonsterIdResponse(monsterEncryptService.decryptMonsterId(encryptedMonsterId));
     }
 }
