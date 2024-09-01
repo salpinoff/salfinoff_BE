@@ -288,6 +288,10 @@ RequestParams
 기본 값: 1 | O
 | size | int | 한 페이지에 출력되는 컨텐츠 개수 +
 기본 값: 10 | O
+| monsterStatus | FREEDOM +
+SUPPRESSION +
+ALL | 몬스터 상태 +
+기본 값: FREEDOM | X
 |===
 
 operation::monster-my-read[snippets='http-response']
