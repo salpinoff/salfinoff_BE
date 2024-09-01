@@ -111,7 +111,7 @@ public class MonsterDocumentation extends Documentation {
                 new PageImpl<>(monsterDetailsResponses, PageRequest.of(0, 10), 2L);
 
         //when
-        when(monsterService.getMonstersByMember(any(), any())).thenReturn(response);
+        when(monsterService.getMonstersByMember(any(), any(), any())).thenReturn(response);
 
         //then
         나의_몬스터_목록_조회(getRequestSpecification("monster-my-read").auth().oauth2("accessToken"));

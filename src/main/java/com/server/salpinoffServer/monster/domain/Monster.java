@@ -126,6 +126,12 @@ public class Monster extends BaseEntity {
         ANGER
     }
 
+    public enum Status {
+        FREEDOM,
+        SUPPRESSION,
+        ALL
+    }
+
     @Getter
     public enum RatingRange {
         RANGE_1(1, 25, 50, 10),

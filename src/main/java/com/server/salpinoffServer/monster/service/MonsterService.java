@@ -2,12 +2,12 @@ package com.server.salpinoffServer.monster.service;
 
 import com.server.salpinoffServer.infra.auth.dto.MemberInfo;
 import com.server.salpinoffServer.infra.exception.NotFoundException;
-import com.server.salpinoffServer.infra.ui.dto.PageResponse;
 import com.server.salpinoffServer.member.domain.Member;
 import com.server.salpinoffServer.member.service.MemberRepository;
 import com.server.salpinoffServer.monster.domain.Monster;
 import com.server.salpinoffServer.monster.domain.MonsterDecoration;
 import com.server.salpinoffServer.monster.domain.MonsterMessage;
+import com.server.salpinoffServer.monster.domain.MonsterSearchCriteria;
 import com.server.salpinoffServer.monster.service.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -67,8 +67,10 @@ public class MonsterService {
     }
 
     @Transactional(readOnly = true)
-    public Page<MonsterDetailsResponse> getMonstersByMember(MemberInfo memberInfo, Pageable pageable) {
-        return monsterRepository.findMonstersByMember(memberInfo.memberId(), pageable)
+    public Page<MonsterDetailsResponse> getMonstersByMember(MemberInfo memberInfo, Pageable pageable, MonsterByMemberRequest request) {
+        MonsterSearchCriteria searchCriteria = MonsterSearchCriteria.builder().memberId(memberInfo.memberId()).monsterStatus(request.getMonsterStatus()).build();
+
+        return monsterRepository.findMonstersByMember(searchCriteria, pageable)
                 .map(monster -> MonsterDetailsResponse.from(monster, memberInfo.username(), monsterEncryptService.encryptMonsterId(monster)));
     }
 

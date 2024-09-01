@@ -33,9 +33,10 @@ public class MonsterController {
     @GetMapping("/my")
     public ResponseEntity<PageResponse<MonsterDetailsResponse>> getMonstersByMember(
             @AuthenticationPrincipal MemberInfo memberInfo,
-            @Valid PageRequest pageRequest) {
+            @Valid PageRequest pageRequest,
+            @Valid MonsterByMemberRequest request) {
 
-        Page<MonsterDetailsResponse> response = monsterService.getMonstersByMember(memberInfo, pageRequest.getPageable());
+        Page<MonsterDetailsResponse> response = monsterService.getMonstersByMember(memberInfo, pageRequest.getPageable(), request);
 
         return ResponseEntity.ok().body(new PageResponse<>(response));
     }

@@ -1,5 +1,6 @@
 package com.server.salpinoffServer.monster.domain;
 
+import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.server.salpinoffServer.infra.exception.NotFoundException;
@@ -52,11 +53,14 @@ public class MonsterRepositoryImpl implements MonsterRepository {
     }
 
     @Override
-    public Page<Monster> findMonstersByMember(Long memberId, Pageable pageable) {
+    public Page<Monster> findMonstersByMember(MonsterSearchCriteria monsterSearchCriteria, Pageable pageable) {
         List<Monster> monsters = queryFactory
                 .select(monster)
                 .from(monster)
-                .where(monster.memberId.eq(memberId))
+                .where(
+                        eqMonsterStatus(monsterSearchCriteria.getMonsterStatus()),
+                        eqMemberId(monsterSearchCriteria.getMemberId())
+                )
                 .orderBy(monster.id.desc())
                 .limit(pageable.getPageSize())
                 .offset(pageable.getOffset())
@@ -65,7 +69,10 @@ public class MonsterRepositoryImpl implements MonsterRepository {
         JPAQuery<Long> countQuery = queryFactory
                 .select(monster.count())
                 .from(monster)
-                .where(monster.memberId.eq(memberId));
+                .where(
+                        eqMonsterStatus(monsterSearchCriteria.getMonsterStatus()),
+                        eqMemberId(monsterSearchCriteria.getMemberId())
+                );
 
         return PageableExecutionUtils.getPage(monsters, pageable, countQuery::fetchOne);
     }
@@ -122,5 +129,22 @@ public class MonsterRepositoryImpl implements MonsterRepository {
                 .fetchOne();
 
         return Optional.ofNullable(checkedMessageCount).orElse(0L);
+    }
+
+    private Predicate eqMonsterStatus(Monster.Status monsterStatus) {
+        if (Objects.isNull(monsterStatus)) {
+            return null;
+        }
+        if (Monster.Status.FREEDOM.equals(monsterStatus)) {
+            return monster.interactionCount.eq(monster.currentInteractionCount);
+        }
+        return monster.interactionCount.ne(monster.currentInteractionCount);
+    }
+
+    private Predicate eqMemberId(Long memberId) {
+        if (Objects.nonNull(memberId)) {
+            return monster.memberId.eq(memberId);
+        }
+        return null;
     }
 }
