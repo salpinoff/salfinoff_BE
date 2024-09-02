@@ -37,6 +37,7 @@ public class MemberService {
         boolean hasMonster = monsterService.hasMonsterForMember(member.getId());
 
         return new LoginResponse(member.getId(), accessToken, refreshToken, member.getUsername(),
+                member.getCreatedAt(),
                 member.signUpStatus(hasMonster).value());
     }
 
@@ -57,6 +58,7 @@ public class MemberService {
         boolean hasMonster = monsterService.hasMonsterForMember(member.getId());
 
         return new LoginResponse(member.getId(), accessToken, refreshToken, member.getUsername(),
+                member.getCreatedAt(),
                 member.signUpStatus(hasMonster).value());
     }
 

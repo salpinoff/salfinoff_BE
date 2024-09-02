@@ -7,6 +7,7 @@ import com.server.salpinoffServer.member.service.dto.TokenResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 import static com.server.salpinoffServer.member.acceptance.MemberSteps.*;
@@ -25,7 +26,7 @@ public class MemberDocumentation extends Documentation {
     void loginKakao() {
         //given
         LoginResponse loginResponse = new LoginResponse(1L, "accessToken", "refreshToken",
-                "빵빵이", 102);
+                "빵빵이", LocalDateTime.now(), 102);
 
         //when
         when(oAuthManager.findSocialKeyByKakao(any())).thenReturn("socialKey");
@@ -39,7 +40,7 @@ public class MemberDocumentation extends Documentation {
     void refreshToken() {
         //given
         LoginResponse tokenResponse = new LoginResponse(1L, "accessToken", "refreshToken",
-                "빵빵이", 101);
+                "빵빵이", LocalDateTime.now(), 101);
 
         //when
         when(memberService.refreshToken(any())).thenReturn(tokenResponse);
