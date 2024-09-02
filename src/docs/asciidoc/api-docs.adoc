@@ -26,6 +26,8 @@ Response body
 | accessToken | String | access token | O
 | refreshToken | String | refresh token | O
 | username | String | 닉네임 | O
+| createdAt | LocalDateTime | 회원 생성일 +
+패턴: yyyy-MM-dd'T'HH:mm:ss | O
 | code | int | 회원가입 프로세스 상태 코드 +
 100: 닉네임 X, 최초 몬스터 생성 X +
 101: 닉네임 O, 최초 몬스터 생성 X +
@@ -52,6 +54,8 @@ Response body
 | accessToken | String | access token | O
 | refreshToken | String | refresh token | O
 | username | String | 닉네임 | O
+| createdAt | LocalDateTime | 회원 생성일 +
+패턴: yyyy-MM-dd'T'HH:mm:ss | O
 | code | int | 회원가입 프로세스 상태 코드 +
 100: 닉네임 X, 최초 몬스터 생성 X +
 101: 닉네임 O, 최초 몬스터 생성 X +
@@ -144,7 +148,7 @@ rating 범위 | O
 | emotion | String | 감정 +
 종류: DEPRESSION, ANGER | O
 | createdAt | LocalDateTime | 몬스터 생성일 +
-패턴: yyyyMMdd'T'HHmmss | O
+패턴: yyyy-MM-dd'T'HH:mm:ss | O
 | monsterDecorations | List<MonsterDecoration> | 몬스터 꾸밈 재료 목록 | O
 |===
 
@@ -195,7 +199,7 @@ rating 범위 | O
 | emotion | String | 감정 +
 종류: DEPRESSION, ANGER | O
 | createdAt | LocalDateTime | 몬스터 생성일 +
-패턴: yyyyMMdd'T'HHmmss | O
+패턴: yyyy-MM-dd'T'HH:mm:ss | O
 | monsterDecorations | List<MonsterDecoration> | 몬스터 꾸밈 재료 목록 | O
 |===
 
@@ -245,7 +249,7 @@ rating 범위 | O
 | emotion | String | 감정 +
 종류: DEPRESSION, ANGER | O
 | createdAt | LocalDateTime | 몬스터 생성일 +
-패턴: yyyyMMdd'T'HHmmss | O
+패턴: yyyy-MM-dd'T'HH:mm:ss | O
 | monsterDecorations | List<MonsterDecoration> | 몬스터 꾸밈 재료 목록 | O
 |===
 
@@ -325,7 +329,7 @@ rating 범위 | O
 | emotion | String | 감정 +
 종류: DEPRESSION, ANGER | O
 | createdAt | LocalDateTime | 몬스터 생성일 +
-패턴: yyyyMMdd'T'HHmmss | O
+패턴: yyyy-MM-dd'T'HH:mm:ss | O
 | monsterDecorations | List<MonsterDecoration> | 몬스터 꾸밈 재료 목록 | O
 |===
 
@@ -368,7 +372,7 @@ rating 범위 | O
 | emotion | String | 감정 +
 종류: DEPRESSION, ANGER | O
 | createdAt | LocalDateTime | 몬스터 생성일 +
-패턴: yyyyMMdd'T'HHmmss | O
+패턴: yyyy-MM-dd'T'HH:mm:ss | O
 | monsterDecorations | List<MonsterDecoration> | 몬스터 꾸밈 재료 목록 | O
 |===
 
